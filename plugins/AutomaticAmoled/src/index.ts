@@ -8,7 +8,7 @@ export default {
     onLoad: () => {
       try {
         logger.log(`ThemeStore.theme = ${ThemeStore.theme}`);
-        logger.log(`${ThemeManager}`);
+        logger.log(`${JSON.stringify(ThemeManager)}`);
       } catch(e) {
         logger.error("Failed to load AutomaticAmoled.", e);
       }
