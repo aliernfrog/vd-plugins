@@ -10,16 +10,17 @@ export default {
     try {
       const theme = ThemeStore.theme || "dark";
       const amoled = UnsyncedUserSettingsStore.useAMOLEDTheme;
+      const darkEnabled = theme == "dark";
       const amoledEnabled = amoled == 2;
         
-      logger.log(`Current theme: ${theme}`);
+      logger.log(`Current theme: ${theme}, dark mode: ${darkEnabled}`);
       logger.log(`AMOLED value: ${amoled}, enabled: ${amoledEnabled}`);
         
-      if (theme == "dark" && !amoledEnabled) {
+      if (darkEnabled && !amoledEnabled) {
         logger.log("Enabling AMOLED");
         AMOLEDThemeManager.setAMOLEDThemeEnabled(true);
-      } else if (amoledEnabled) {
-        // Having amoled + light theme causes theming issues on 174.6 (and probably up)
+      } else if (!darkEnabled && amoledEnabled) {
+        // Having AMOLED + light theme causes theming issues on 174.6 (and probably wont be fixed)
         // Need to disable it when dark theme is not enabled
         logger.log("Disabling AMOLED since dark theme is not enabled");
         AMOLEDThemeManager.setAMOLEDThemeEnabled(false);
