@@ -1,0 +1,1 @@
+(function(t,r,o){"use strict";const d=r.findByProps("updateTheme","overrideTheme"),n=r.findByStoreName("ThemeStore");var a={onLoad:function(){try{o.log(`ThemeStore.theme = ${n.theme}`),o.log(`${d}`)}catch(i){o.error("Failed to load AutomaticAmoled plugin.",i)}}};return t.default=a,Object.defineProperty(t,"__esModule",{value:!0}),t})({},vendetta.metro,e);
