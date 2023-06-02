@@ -1,3 +1,4 @@
+import { findByName, findByProps } from "@vendetta/metro";
 import { url } from "@vendetta/metro/common";
 import { getAssetIDByName } from "@vendetta/ui/assets";
 import { findInReactTree } from "@vendetta/utils";
