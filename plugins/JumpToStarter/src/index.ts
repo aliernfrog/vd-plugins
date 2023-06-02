@@ -4,6 +4,7 @@ import { after } from "@vendetta/patcher";
 
 const ForumPostLongPressActionSheet = findByName("ForumPostLongPressActionSheet", false);
 const { useFirstForumPostMessage } = findByProps("useFirstForumPostMessage");
+const { jumpToMessage } = findByProps("jumpToMessage");
 
 let patch;
 
@@ -15,6 +16,8 @@ export default {
       if (!firstMessage) return logger.log(`Forum thread ${thread.id} doesn't have a starter message`);
       
       logger.log(`First message: ${JSON.stringify(firstMessage)}`);
+      
+      jumpToMessage(firstMessage);
     });
   },
   
