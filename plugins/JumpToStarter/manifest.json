@@ -1,6 +1,6 @@
 {
     "name": "Jump to starter message",
-    "description": "Adds an option to jump to starter message in forum post long press action sheet.",
+    "description": "Adds option to jump to starter message of a forum post.",
     "authors": [
         {
             "name": "aliernfrog",
