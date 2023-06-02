@@ -17,8 +17,8 @@ export default function JumpButton(res, firstMessageURL) {
       leading={<Icon source={getAssetIDByName("ic_link_24px")} />}
       label={"Jump to first message"}
       onPress={() =>
-        (url.openDeeplink(firstMessageURL);
-        hideActionSheet())
+        (url.openDeeplink(firstMessageURL))
+        (hideActionSheet())
       }
     />
   </ActionsSection>);
