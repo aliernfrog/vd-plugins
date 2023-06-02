@@ -7,7 +7,7 @@ import { Forms } from "@vendetta/ui/components";
 const { FormRow } = Forms;
 const Icon = findByName("Icon");
 
-const { hideActionSheet } = findByProps("openLazy", "hideActionSheet");
+//const { hideActionSheet } = findByProps("openLazy", "hideActionSheet");
 
 export default function JumpButton(res, firstMessageURL) {
   const actions = findInReactTree(res, (t) => t.props?.bottom === true).props.children.props.children[1];
@@ -18,7 +18,7 @@ export default function JumpButton(res, firstMessageURL) {
       leading={<Icon source={getAssetIDByName("ic_link_24px")} />}
       label={"Jump to first message"}
       onPress={() =>
-        (hideActionSheet())
+        //(hideActionSheet())
         (url.openDeeplink(firstMessageURL))
       }
     />

@@ -4,21 +4,23 @@ import { after } from "@vendetta/patcher";
 import JumpButton from "./ui/JumpButton";
 
 const ForumPostLongPressActionSheet = findByName("ForumPostLongPressActionSheet", false);
-const { useFirstForumPostMessage } = findByProps("useFirstForumPostMessage");
+//const { useFirstForumPostMessage } = findByProps("useFirstForumPostMessage");
 
 let patch;
 
 export default {
   onLoad: () => {
     patch = after("default", ForumPostLongPressActionSheet, ([{ thread }], res) => {
-      const { firstMessage } = useFirstForumPostMessage(thread);
+      //const { firstMessage } = useFirstForumPostMessage(thread);
       
-      if (!firstMessage) return logger.log(`Forum thread ${thread.id} doesn't have a starter message`);
+      //if (!firstMessage) return logger.log(`Forum thread ${thread.id} doesn't have a starter message`);
       
-      logger.log(`First message: ${JSON.stringify(firstMessage)}`);
+      //logger.log(`First message: ${JSON.stringify(firstMessage)}`);
       logger.log(`Thread: ${JSON.stringify(thread)}`);
       
-      const firstMessageURL = `https://discord.com/channels/${thread.guild_id}/${thread.id}/${firstMessage.id}`;
+      const firstMessageURL = `https://discord.com/channels/${thread.guild_id}/${thread.id}/${thread.id}`;
+      logger.log(`First message URL: ${firstMessageURL}`);
+      
       JumpButton(res, firstMessageURL);
     });
   },
