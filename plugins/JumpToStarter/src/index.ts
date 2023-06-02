@@ -28,7 +28,7 @@ export default {
       const actions = findInReactTree(res, (t) => t.props?.bottom === true).props.children.props.children[1];
       const ActionsSection = actions[0].type;
 
-      actions.unshift(<ActionsSection key="jumpfirst">
+      actions.unshift(<ActionsSection>
         <FormRow
           leading={<Icon source={getAssetIDByName("ic_link_24px")} />}
           label={"Jump to first message"}
