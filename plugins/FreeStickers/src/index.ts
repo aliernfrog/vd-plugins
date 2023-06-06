@@ -22,7 +22,7 @@ export default {
       const stickerIds = args[1];
       const stickers = stickerIds.map(stickerId => getStickerById(stickerId));
       const stickersToModify = stickers.filter(sticker => !isStickerAvailable(sticker));
-      if (!stickersToModify.length) return;
+      if (!stickersToModify.length) return sendStickersOriginal(...args);
       
       const newContent = stickersToModify.map(sticker => buildStickerURL(sticker)).join("\n");
       messageModule.sendMessage(
@@ -48,6 +48,6 @@ function isStickerAvailable(sticker) {
   return false;
 }
 
-function buildStickerURL(sticker, size = "256") {
+function buildStickerURL(sticker, size = "160") {
   return `https://media.discordapp.net/stickers/${sticker.id}.png?size=${size}`;
 }
