@@ -22,6 +22,7 @@ export default {
         const firstMessageURL = buildMessageURL(thread.guild_id, thread.id, thread.id);
         actions.unshift(JumpStarterSection(actions, firstMessageURL));
       }),
+      
       before("openLazy", ActionSheet, (ctx) => {
         const [component, args, actionMessage] = ctx;
         if (args != "MessageLongPressActionSheet") return;
@@ -39,6 +40,7 @@ export default {
             const referenceURL = buildMessageURL(reference.guild_id, reference.channel_id, reference.message_id);
             
             buttons.push(JumpReferenceButton(referenceURL));
+          });
         });
       })
     ]
