@@ -22,8 +22,8 @@ export default {
       const channelId = args[0];
       const stickerIds = args[1];
       const stickers = stickerIds.map(stickerId => getStickerById(stickerId));
-      const stickersToModify = stickers.filter(sticker => !isStickerAvailable(stickerId));
-      if (!stickersToModify) return;
+      const stickersToModify = stickers.filter(sticker => !isStickerAvailable(sticker.id));
+      if (!stickersToModify.length) return;
       
       const newContent = stickersToModify.map(sticker => buildStickerURL(sticker)).join("\n");
       messageModule.sendMessage(
