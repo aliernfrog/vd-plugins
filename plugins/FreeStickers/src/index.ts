@@ -38,13 +38,9 @@ export default {
 }
 
 function isStickerAvailable(sticker, channelId) {
-  const isCustom = (sticker.format_type == 1 || // PNG
-    sticker.format_type == 2 || // APNG
-    sticker.format_type == 4 // GIF
-  );
-  if (!isCustom) return true;
+  if (!sticker.guild_id) return true; // Not from a guild, default sticker. No Nitro needed.
   const channelGuildId = getChannel(channelId).guild_id;
-  if (sticker.guild_id == channelGuildId) return true;
+  if (sticker.guild_id == channelGuildId) return true; // Sticker is from current guild. No Nitro needed.
   return false;
 }
 
