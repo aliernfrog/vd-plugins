@@ -18,6 +18,7 @@ export default {
     
     const sendStickersOriginal = messageModule.sendStickers;
     patches.push(instead("sendStickers", messageModule, (args) => {
+      try {
       const channelId = args[0];
       const stickerIds = args[1];
       const stickers = stickerIds.map(stickerId => getStickerById(stickerId));
@@ -33,6 +34,9 @@ export default {
         null,
         {}
       );
+      } catch (e) {
+        logger.error("Failed to fake sticker", e)
+      }
     }));
   },
   
