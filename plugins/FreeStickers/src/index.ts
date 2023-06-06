@@ -1,4 +1,3 @@
-import { logger } from "@vendetta";
 import { findByProps, findByStoreName } from "@vendetta/metro";
 import { instead } from "@vendetta/patcher";
 
@@ -11,8 +10,6 @@ const patches = [];
 
 export default {
   onLoad: () => {
-    if (nitroInfo.isPremium()) return logger.log("User has Nitro, no need to patch stickers");
-    
     patches.push(
       instead("canUseStickersEverywhere", nitroInfo, () => true)
     );
