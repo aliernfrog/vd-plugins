@@ -12,7 +12,7 @@ export default function JumpStarterSection(actions, firstMessageURL) {
   return <ActionsSection key="jumpstartervd">
     <FormRow
       leading={<Icon source={getAssetIDByName("ic_link_24px")} />}
-      label={"Jump to starter message"}
+      label={"Jump To Starter Message"}
       onPress={() =>
         (url.openDeeplink(firstMessageURL))
       }
