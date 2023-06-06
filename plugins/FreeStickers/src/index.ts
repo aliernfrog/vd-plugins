@@ -18,7 +18,6 @@ export default {
     
     const sendStickersOriginal = messageModule.sendStickers;
     patches.push(instead("sendStickers", messageModule, (args) => {
-      try {
       const channelId = args[0];
       const stickerIds = args[1];
       const stickers = stickerIds.map(stickerId => getStickerById(stickerId));
@@ -32,9 +31,6 @@ export default {
           content: newContent
         }
       );
-      } catch (e) {
-        logger.error("Failed to fake sticker", e)
-      }
     }));
   },
   
@@ -53,5 +49,5 @@ function isStickerAvailable(sticker) {
 }
 
 function buildStickerURL(sticker, size = "256") {
-  return `https://cdn.discordapp.net/stickers/${sticker.id}.png?size=${size}`;
+  return `https://media.discordapp.net/stickers/${sticker.id}.png?size=${size}`;
 }
