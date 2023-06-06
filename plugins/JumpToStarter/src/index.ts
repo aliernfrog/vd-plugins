@@ -1,20 +1,50 @@
-import { findByName } from "@vendetta/metro";
-import { after } from "@vendetta/patcher";
-import JumpButton from "./ui/JumpButton";
+import { findByName, findByProps } from "@vendetta/metro";
+import { React } from "@vendetta/metro/common";
+import { after, before } from "@vendetta/patcher";
+import { findInReactTree } from "@vendetta/utils";
+import JumpReferenceButton from "./ui/JumpReferenceButton";
+import JumpStarterSection from "./ui/JumpStarterSection";
 
+const ActionSheet = findByProps("openLazy", "hideActionSheet");
 const ForumPostLongPressActionSheet = findByName("ForumPostLongPressActionSheet", false);
 
-let patch;
+let patches = [];
+
+function buildMessageURL(guild, channel, message) {
+  return `https://discord.com/channels/${guild}/${channel}/${message}`;
+}
 
 export default {
   onLoad: () => {
-    patch = after("default", ForumPostLongPressActionSheet, ([{ thread }], res) => {
-      const firstMessageURL = `https://discord.com/channels/${thread.guild_id}/${thread.id}/${thread.id}`;
-      JumpButton(res, firstMessageURL);
-    });
+    patches = [
+      after("default", ForumPostLongPressActionSheet, ([{ thread }], res) => {
+        const actions = findInReactTree(res, (t) => t.props?.bottom === true).props.children.props.children[1];
+        const firstMessageURL = buildMessageURL(thread.guild_id, thread.id, thread.id);
+        actions.unshift(JumpStarterSection(actions, firstMessageURL));
+      }),
+      before("openLazy", ActionSheet, (ctx) => {
+        const [component, args, actionMessage] = ctx;
+        if (args != "MessageLongPressActionSheet") return;
+        component.then(instance => {
+          const unpatch = after("default", instance, (_, component) => {
+            React.useEffect(() => () => { unpatch() }, []); // omg;!!!!!!!!!!!!!
+            const [msgProps, buttons] = component.props?.children?.props?.children?.props?.children;
+    
+            const message = msgProps?.props?.message ?? actionMessage?.message;
+            
+            if (!message || !buttons) return;
+            if (!message.messageReference?.message_id) return;
+            
+            const reference = message.messageReference;
+            const referenceURL = buildMessageURL(reference.guild_id, reference.channel_id, reference.message_id);
+            
+            buttons.push(JumpReferenceButton(referenceURL));
+        });
+      })
+    ]
   },
   
   onUnload: () => {
-    patch?.unpatch();
+    patches.forEach(unpatch => unpatch?.());
   }
 }

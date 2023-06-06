@@ -1,17 +1,15 @@
 import { findByName } from "@vendetta/metro";
 import { url } from "@vendetta/metro/common";
 import { getAssetIDByName } from "@vendetta/ui/assets";
-import { findInReactTree } from "@vendetta/utils";
 import { Forms } from "@vendetta/ui/components";
 
 const { FormRow } = Forms;
 const Icon = findByName("Icon");
 
-export default function JumpButton(res, firstMessageURL) {
-  const actions = findInReactTree(res, (t) => t.props?.bottom === true).props.children.props.children[1];
+export default function JumpStarterSection(actions, firstMessageURL) {
   const ActionsSection = actions[0].type;
 
-  actions.unshift(<ActionsSection key="jumpfirst">
+  return <ActionsSection key="jumpstartervd">
     <FormRow
       leading={<Icon source={getAssetIDByName("ic_link_24px")} />}
       label={"Jump to starter message"}
@@ -19,5 +17,5 @@ export default function JumpButton(res, firstMessageURL) {
         (url.openDeeplink(firstMessageURL))
       }
     />
-  </ActionsSection>);
+  </ActionsSection>
 }
