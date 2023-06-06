@@ -1,9 +1,10 @@
 import { logger } from "@vendetta";
-import { findByProps } from "@vendetta/metro";
-import { before, instead } from "@vendetta/patcher";
+import { findByProps, findByStoreName } from "@vendetta/metro";
+import { instead } from "@vendetta/patcher";
 
 const nitroInfo = findByProps("canUseStickersEverywhere");
 const messageModule = findByProps("sendMessage", "receiveMessage");
+const { getStickerById } = findByStoreName("StickersStore");
 
 const patches = [];
 
@@ -15,17 +16,21 @@ export default {
       instead("canUseStickersEverywhere", nitroInfo, () => true)
     );
     
-    patches.push(before("sendMessage", messageModule, (args) => {
-      const message = args[1];
+    const sendStickersOriginal = messageModule.sendStickers;
+    patches.push(instead("sendStickers", messageModule, (args) => {
+      const channelId = args[0];
+      const stickerIds = args[1];
+      const stickers = stickerIds.map(stickerId => getStickerById(stickerId));
+      const stickersToModify = stickers.filter(sticker => !isStickerAvailable(stickerId));
+      if (!stickersToModify) return;
       
-      if (!message?.stickerItems?.length) return;
-      
-      const toModify = message.stickerItems.filter(sticker => !isStickerAvailable(sticker));
-      if (!toModify.length) return;
-      
-      message.content = toModify.map(sticker => buildStickerURL(sticker)).join("\n");
-      message.stickers = [];
-      message.stickerItems = [];
+      const newContent = stickersToModify.map(sticker => buildStickerURL(sticker)).join("\n");
+      messageModule.sendMessage([
+        channelId,
+        {
+          content: newContent
+        }
+      ]);
     }));
   },
   
