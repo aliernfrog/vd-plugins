@@ -1,6 +1,6 @@
 {
-    "name": "Jump to starter message",
-    "description": "Adds option to jump to starter message of a forum post.",
+    "name": "JumpTo",
+    "description": "Lets you jump to referenced messages and beginning of forum posts.",
     "authors": [
         {
             "name": "aliernfrog",
