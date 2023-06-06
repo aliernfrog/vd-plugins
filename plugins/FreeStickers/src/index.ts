@@ -11,7 +11,7 @@ const patches = [];
 
 export default {
   onLoad: () => {
-    if (nitroInfo.canUseStickersEverywhere()) return logger.log("User has Nitro, no need to patch stickers");
+    if (nitroInfo.isPremium()) return logger.log("User has Nitro, no need to patch stickers");
     
     patches.push(
       instead("canUseStickersEverywhere", nitroInfo, () => true)
