@@ -25,12 +25,14 @@ export default {
       if (!stickersToModify) return;
       
       const newContent = stickersToModify.map(sticker => buildStickerURL(sticker)).join("\n");
-      messageModule.sendMessage([
+      messageModule.sendMessage(
         channelId,
         {
           content: newContent
-        }
-      ]);
+        },
+        null,
+        {}
+      );
     }));
   },
   
