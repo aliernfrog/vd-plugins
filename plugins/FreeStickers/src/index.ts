@@ -47,7 +47,7 @@ function isStickerAvailable(sticker, channelId) {
   );
   if (!isCustom) return true;
   const channelGuildId = getChannel(channelId).guild_id;
-  if (sticker.guild_id && sticker.guild_id == channelGuildId) return true;
+  if (sticker.guild_id == channelGuildId) return true;
   return false;
 }
 
