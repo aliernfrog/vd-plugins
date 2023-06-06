@@ -12,7 +12,7 @@ export default {
     if (nitroInfo.canUseStickersEverywhere()) return logger.log("User has Nitro, no need to patch stickers");
     
     patches.push(
-      instead("canUseStickersEverywhere", nitroInfo, () => true);
+      instead("canUseStickersEverywhere", nitroInfo, () => true)
     );
     
     patches.push(before("sendMessage", messageModule, (args) => {
