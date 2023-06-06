@@ -1,4 +1,3 @@
-import { logger } from "@vendetta";
 import { findByName, findByProps } from "@vendetta/metro";
 import { React } from "@vendetta/metro/common";
 import { after, before } from "@vendetta/patcher";
@@ -21,7 +20,6 @@ export default {
       after("default", ForumPostLongPressActionSheet, ([{ thread }], res) => {
         const actions = findInReactTree(res, (t) => t.props?.bottom === true).props.children.props.children[1];
         const firstMessageURL = buildMessageURL(thread.guild_id, thread.id, thread.id);
-        logger.log(`First message url: ${firstMessageURL}`);
         
         actions.unshift(JumpStarterSection(actions, firstMessageURL));
       }),
@@ -41,7 +39,6 @@ export default {
             
             const reference = message.messageReference;
             const referenceURL = buildMessageURL(reference.guild_id, reference.channel_id, reference.message_id);
-            logger.log(`Reference url: ${referenceURL}`);
             
             buttons.push(JumpReferenceButton(referenceURL));
           });
