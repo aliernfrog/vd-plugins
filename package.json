@@ -20,5 +20,8 @@
 				"react-native"
 			]
 		}
+	},
+	"dependencies": {
+		"http-server": "^14.1.1"
 	}
 }
