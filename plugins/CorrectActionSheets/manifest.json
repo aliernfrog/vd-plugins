@@ -1,0 +1,14 @@
+{
+  "name": "CorrectActionSheets",
+  "description": "Opens correct action sheets for threads and forum posts.",
+  "authors": [
+    {
+      "name": "aliernfrog",
+      "id": "459370047652102154"
+    }
+  ],
+  "main": "src/index.ts",
+  "vendetta": {
+    "icon": "ic_badge_staff"
+  }
+}
