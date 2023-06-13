@@ -10,25 +10,6 @@ let patch;
 
 export default {
   onLoad: () => {
-    /*openLazyReal = ActionSheet.openLazy;
-    
-    ActionSheet.openLazy = (...args) => {
-      const [ _, type, ctx ] = args;
-      try {
-        if (!needToPatchContextMenu(type, ctx)) return openLazyReal(...args);
-      
-        openLazyReal(
-          Promise.resolve({ default: ThreadLongPressActionSheet }),
-          "ThreadLongPressActionSheet",
-          {
-            channelId: ctx.channelId
-          }
-        );
-      } catch (e) {
-        logger.error(`Failed to patch ${type}`, e);
-      }
-    }*/
-
     patch = before("openLazy", ActionSheet, (args) => {
       const [ component, type, ctx ] = args;
       if (!needToPatchContextMenu(type, ctx)) return;
@@ -36,7 +17,10 @@ export default {
       args[0] = Promise.resolve({ default: ThreadLongPressActionSheet }),
       args[1] = "ThreadLongPressActionSheet",
       args[2] = {
-        channelId: ctx.channelId
+        channelId: ctx.channelId,
+        onClose: () => {
+          ActionSheet.hideActionSheet();
+        }
       }
     });
   },
