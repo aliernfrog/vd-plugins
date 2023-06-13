@@ -1,7 +1,7 @@
-import { logger } from "@vendetta";
 import { findByName, findByProps, findByStoreName } from "@vendetta/metro";
 import { before } from "@vendetta/patcher";
 
+const ForumPostLongPressActionSheet = findByName("ForumPostLongPressActionSheet");
 const ThreadLongPressActionSheet = findByName("ThreadLongPressActionSheet");
 const ActionSheet = findByProps("openLazy", "hideActionSheet");
 const ChannelStore = findByStoreName("ChannelStore");
@@ -11,17 +11,13 @@ let patch;
 export default {
   onLoad: () => {
     patch = before("openLazy", ActionSheet, (args) => {
-      const [ component, type, ctx ] = args;
-      if (!needToPatchContextMenu(type, ctx)) return;
+      const [ _, type, ctx ] = args;
+      const override = getOverride(type, ctx);
+      if (!override) return;
 
-      args[0] = Promise.resolve({ default: ThreadLongPressActionSheet }),
-      args[1] = "ThreadLongPressActionSheet",
-      args[2] = {
-        channelId: ctx.channelId,
-        onClose: () => {
-          ActionSheet.hideActionSheet();
-        }
-      }
+      args[0] = override.component;
+      args[1] = override.type;
+      args[2] = override.ctx;
     });
   },
   
@@ -30,8 +26,26 @@ export default {
   }
 }
 
-function needToPatchContextMenu(type, ctx) {
-  if (!type.startsWith("ChannelLongPress")) return false;
+function getOverride(type, ctx) {
+  if (!type.startsWith("ChannelLongPress")) return null;
   const channel = ChannelStore.getChannel(ctx.channelId);
-  return !!channel.threadMetadata;
+  if (!channel.parent_id || !channel.threadMetadata) return null;
+  const parentChannel = ChannelStore.getChannel(channel.parent_id);
+  const isForumThread = parentChannel.type == 15;
+  return isForumThread ? {
+    component: Promise.resolve({ default: ForumPostLongPressActionSheet }),
+    type: "ForumPostLongPressActionSheet",
+    ctx: {
+      thread: channel,
+      parentChannel: parentChannel,
+      onClose: () => ActionSheet.hideActionSheet()
+    }
+  } : {
+    component: Promise.resolve({ default: ThreadLongPressActionSheet }),
+    type: "ThreadLongPressActionSheet",
+    ctx: {
+      channelId: ctx.channelId,
+      onClose: () => ActionSheet.hideActionSheet()
+    }
+  }
 }
