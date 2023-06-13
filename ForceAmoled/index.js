@@ -1,1 +1,0 @@
-(function(e,n){"use strict";const t=n.findByProps("setAMOLEDThemeEnabled");var d={onLoad:function(){t.setAMOLEDThemeEnabled(!0)}};return e.default=d,Object.defineProperty(e,"__esModule",{value:!0}),e})({},vendetta.metro);
