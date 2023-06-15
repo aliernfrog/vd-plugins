@@ -21,8 +21,8 @@ export default {
     
     const sendStickersOriginal = messageModule.sendStickers;
     patches.push(instead("sendStickers", messageModule, (args) => {
-      const channelId = args[0];
-      const stickerIds = args[1];
+      const [ channelId, stickerIds, _, extra ] = args;
+      
       const stickers = stickerIds.map(stickerId => getStickerById(stickerId));
       const stickersToModify = stickers.filter(sticker => !isStickerAvailable(sticker, channelId));
       if (!stickersToModify.length) return sendStickersOriginal(...args);
@@ -34,7 +34,9 @@ export default {
           channelId,
           {
             content: newContent
-          }
+          },
+          null,
+          extra
         );
       }
 
