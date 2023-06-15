@@ -16,12 +16,14 @@ function buildMessageURL(guild, channel, message) {
 
 export default {
   onLoad: () => {
+    const closeSheet = () => ActionSheet.hideActionSheet();
+    
     patches = [
       after("default", ForumPostLongPressActionSheet, ([{ thread }], res) => {
         const actions = findInReactTree(res, (t) => t.props?.bottom === true).props.children.props.children[1];
         const firstMessageURL = buildMessageURL(thread.guild_id, thread.id, thread.id);
         
-        actions.unshift(JumpStarterSection(actions, firstMessageURL));
+        actions.unshift(JumpStarterSection(actions, firstMessageURL, closeSheet));
       }),
       
       before("openLazy", ActionSheet, (ctx) => {
@@ -40,7 +42,7 @@ export default {
             const reference = message.messageReference;
             const referenceURL = buildMessageURL(reference.guild_id, reference.channel_id, reference.message_id);
             
-            buttons.push(JumpReferenceButton(referenceURL));
+            buttons.push(JumpReferenceButton(referenceURL, closeSheet));
           });
         });
       })
