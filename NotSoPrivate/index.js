@@ -1,0 +1,1 @@
+(function(n,t){"use strict";const e=t.findByProps("toggleTabsUIManually"),{ChatListAnimationExperiment:a}=t.findByProps("ChatListAnimationExperiment");var i={onLoad:function(){e.isTabsUIEnabledManually()||e.toggleTabsUIManually(!0),a.getCurrentConfig().shouldAnimateAndroid=!0}};return n.default=i,Object.defineProperty(n,"__esModule",{value:!0}),n})({},vendetta.metro);

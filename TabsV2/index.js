@@ -1,1 +1,0 @@
-(function(a,n){"use strict";const e=n.findByProps("toggleTabsUIManually");var t={onLoad:function(){e.isTabsUIEnabledManually()||e.toggleTabsUIManually(!0)}};return a.default=t,Object.defineProperty(a,"__esModule",{value:!0}),a})({},vendetta.metro);
