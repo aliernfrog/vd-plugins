@@ -1,0 +1,30 @@
+{
+  "name": "ReAMOLED",
+  "description": "Makes AMOLED theme better.",
+  "authors": [
+    {
+      "name": "aliernfrog",
+      "id": "459370047652102154"
+    }
+  ],
+  "build": {
+    "semanticColors": {
+      "useDefaults": true,
+      "setIndex": [0,2],
+      "overrides": [
+        {
+          "key": "BACKGROUND_PRIMARY",
+          "value": "#101013"
+        },
+        {
+          "key": "BACKGROUND_SECONDARY",
+          "value": "#000000"
+        },
+        {
+          "key": "BACKGROUND_MESSAGE_HIGHLIGHT",
+          "value": "#10101A"
+        }
+      ]
+    }
+  }
+}
