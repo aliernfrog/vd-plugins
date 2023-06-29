@@ -1,0 +1,14 @@
+{
+  "name": "MessageHighlightBar",
+  "description": "Adds a blue bar near highlighted messages.",
+  "authors": [
+    {
+      "name": "aliernfrog",
+      "id": "459370047652102154"
+    }
+  ],
+  "main": "src/index.ts",
+  "vendetta": {
+    "icon": "ic_badge_staff"
+  }
+}
