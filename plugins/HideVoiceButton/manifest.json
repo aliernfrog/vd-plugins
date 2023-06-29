@@ -1,0 +1,14 @@
+{
+  "name": "HideVoiceButton",
+  "description": "Hides voice message button in chat input.",
+  "authors": [
+    {
+      "name": "aliernfrog",
+      "id": "459370047652102154"
+    }
+  ],
+  "main": "src/index.ts",
+  "vendetta": {
+    "icon": "ic_mic_24px"
+  }
+}
