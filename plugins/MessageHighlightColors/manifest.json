@@ -1,6 +1,6 @@
 {
-  "name": "MessageHighlightBar",
-  "description": "Adds a blue bar near highlighted messages.",
+  "name": "MessageHighlightColors",
+  "description": "Lets you change highlight colors of messages.",
   "authors": [
     {
       "name": "aliernfrog",
@@ -9,6 +9,6 @@
   ],
   "main": "src/index.ts",
   "vendetta": {
-    "icon": "ic_badge_staff"
+    "icon": "ic_highlight"
   }
 }
