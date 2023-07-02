@@ -1,4 +1,3 @@
-import { logger } from "@vendetta";
 import { findByName, findByProps, findByStoreName } from "@vendetta/metro";
 import { FluxDispatcher, ReactNative } from "@vendetta/metro/common";
 import { after } from "@vendetta/patcher";
@@ -55,18 +54,18 @@ const patch = vendetta.patcher.after("generate", RowManager.prototype, ([data], 
       }));*/
     
     const avatarURL = `https://cdn.discordapp.com/avatars/${cachedMessage.author?.id}/${cachedMessage.author?.avatar}.png`;
-    const time = new Date().toLocaleString([], {year: "numeric", month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit"});
+    const time = new Date(cachedMessage.timestamp).toLocaleString([], {year: "numeric", month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit"});
     const guild = !!obj.guildId ? getGuild(obj.guildId) : null;
     const guildName = guild?.name;
     const guildIconURL = guild ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png` : null;
     const channel = getChannel(obj.channelId);
-    const channelName = channel?.name ?? channel?.rawRecipients?.[0]?.globalName;
+    const channelName = channel?.name;
     const channelInfo = `${channelName ? "#"+channelName : ""}${guildName ? "  •  "+guildName: ""}`;
     const footerText = channelInfo.length ? channelInfo : null;
     component.message.embeds.push({
       type: "rich",
       author: {
-        name: `${cachedMessage.author?.global_name}  •  ${time}`,
+        name: `${cachedMessage.author?.global_name ?? cachedMessage.author?.username}  •  ${time}`,
         url: obj.rawURL,
         iconURL: avatarURL,
         iconProxyURL: avatarURL
@@ -105,7 +104,6 @@ async function fetchMessage(channelId, messageId) {
   }).catch(() => null);
 
   const message = res?.body?.[0];
-  logger.log(message);
   messageCache.set(messageId, message);
   return message;
 }
