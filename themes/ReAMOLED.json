@@ -7,9 +7,6 @@
    "id": "459370047652102154"
   }
  ],
- "rawColors": {
-  "PRIMARY_560": "#091a18"
- },
  "semanticColors": {
   "BACKGROUND_ACCENT": [
    "#161719",
@@ -20,11 +17,6 @@
    "#0c0c0d",
    "#ffffff",
    "#0c0c0d"
-  ],
-  "BACKGROUND_MESSAGE_HIGHLIGHT": [
-   "#768afd36",
-   "#949cf71a",
-   "#949cf714"
   ],
   "BACKGROUND_MOBILE_PRIMARY": [
    "#000000",
@@ -145,6 +137,19 @@
    "#c4c9ce",
    "#313338",
    "#c4c9ce"
+  ],
+  "BACKGROUND_MESSAGE_HIGHLIGHT": [
+   "#768afd36"
+  ],
+  "REDESIGN_ACTIVITY_CARD_BACKGROUND": [
+   "#101013",
+   null,
+   "#101013"
+  ],
+  "REDESIGN_ACTIVITY_CARD_BORDER": [
+   "#222225",
+   null,
+   "#222225"
   ]
  }
 }
