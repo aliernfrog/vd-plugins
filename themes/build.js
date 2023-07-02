@@ -40,16 +40,16 @@ function buildTheme(theme) {
           color[setIndex[0]] = color[setIndex[1]];
         }
 
-        const override = semanticColorsConfig.overrides.find(o => o.key == key);
-        if (override) {
-          override.index = [].concat(override.index ?? 0);
-          override.index.forEach(index => {
-            if (color[index] != override.value) modified++;
-            color[index] = override.value;
-          });
-        }
-        
         if (modified) newSemanticColors[key] = color;
+      });
+
+      semanticColorsConfig.overrides.forEach(override => {
+        const color = newSemanticColors[override.key] ?? [];
+        override.index = [].concat(override.index ?? 0);
+        override.index.forEach(i => {
+          color[i] = override.value;
+        });
+        newSemanticColors[override.key] = color;
       });
 
       theme.semanticColors = newSemanticColors;
