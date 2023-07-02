@@ -23,11 +23,18 @@
         {
           "key": "BACKGROUND_MESSAGE_HIGHLIGHT",
           "value": "#768afd36"
+        },
+        {
+          "key": "REDESIGN_ACTIVITY_CARD_BACKGROUND",
+          "index": [0,2],
+          "value": "#101013"
+        },
+        {
+          "key": "REDESIGN_ACTIVITY_CARD_BORDER",
+          "index": [0,2],
+          "value": "#222225"
         }
       ]
     }
-  },
-  "rawColors": {
-    "PRIMARY_560": "#091a18"
   }
 }
