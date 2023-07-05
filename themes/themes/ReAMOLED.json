@@ -10,10 +10,16 @@
   "build": {
     "semanticColors": {
       "useDefaults": true,
+      "overrideDefaultIndex": [0,2],
       "setIndex": [0,2],
       "overrides": [
         {
+          "key": "BACKGROUND_MESSAGE_HIGHLIGHT",
+          "value": "#768afd36"
+        },
+        {
           "key": "BACKGROUND_PRIMARY",
+          "index": 0,
           "value": "#101013"
         },
         {
@@ -21,18 +27,16 @@
           "value": "#000000"
         },
         {
-          "key": "BACKGROUND_MESSAGE_HIGHLIGHT",
-          "value": "#768afd36"
-        },
-        {
           "key": "REDESIGN_ACTIVITY_CARD_BACKGROUND",
-          "index": [0,2],
           "value": "#101013"
         },
         {
           "key": "REDESIGN_ACTIVITY_CARD_BORDER",
-          "index": [0,2],
           "value": "#222225"
+        },
+        {
+          "key": "MODAL_FOOTER_BACKGROUND",
+          "value": "#000000"
         }
       ]
     }
