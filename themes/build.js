@@ -45,7 +45,7 @@ function buildTheme(theme) {
 
       semanticColorsConfig.overrides.forEach(override => {
         const color = newSemanticColors[override.key] ?? [];
-        override.index = [].concat(override.index ?? 0);
+        override.index = [].concat(override.index ?? semanticColorsConfig.overrideDefaultIndex ?? 0);
         override.index.forEach(i => {
           color[i] = override.value;
         });
