@@ -61,7 +61,7 @@
   "BACKGROUND_SECONDARY": [
    "#000000",
    "#f2f3f5",
-   "#0c0c0d"
+   "#000000"
   ],
   "BACKGROUND_SECONDARY_ALT": [
    "#111214",
@@ -139,6 +139,8 @@
    "#c4c9ce"
   ],
   "BACKGROUND_MESSAGE_HIGHLIGHT": [
+   "#768afd36",
+   null,
    "#768afd36"
   ],
   "REDESIGN_ACTIVITY_CARD_BACKGROUND": [
@@ -150,6 +152,11 @@
    "#222225",
    null,
    "#222225"
+  ],
+  "MODAL_FOOTER_BACKGROUND": [
+   "#000000",
+   null,
+   "#000000"
   ]
  }
 }
