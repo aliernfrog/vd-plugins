@@ -11,22 +11,22 @@ const colorOptions = [
   {
     label: "Pending reply bar color",
     key: "replyBarColor",
-    default: "#40408d"
+    default: "#949cf7"
   },
   {
     label: "Pending reply background color",
     key: "replyBgColor",
-    default: "#40408d60"
+    default: "#949cf730"
   },
   {
     label: "Pending edit bar color",
     key: "editBarColor",
-    default: "#11ee11"
+    default: "#00aa5d"
   },
   {
     label: "Pending edit background color",
     key: "editBgColor",
-    default: "#11ee1130"
+    default: "#00aa5d30"
   }
 ];
 
