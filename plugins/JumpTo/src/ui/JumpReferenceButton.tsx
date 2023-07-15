@@ -24,10 +24,13 @@ export default function JumpReferenceButton(type, referenceURL, onClose) {
   />
 
   // Fix for 188.6+, maybe there is a better one?
-  row.type = type;
-  row.props.message = row.props.label;
-  row.props.iconSource = row.props.leading.props.source;
-  row.props.onPressRow = row.props.onPress;
+  // Unfortunately, this does not support long press
+  if (type) {
+    row.type = type;
+    row.props.message = row.props.label;
+    row.props.iconSource = row.props.leading.props.source;
+    row.props.onPressRow = row.props.onPress;
+  }
 
   return row;
 }
