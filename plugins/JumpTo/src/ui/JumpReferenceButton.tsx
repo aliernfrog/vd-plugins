@@ -8,8 +8,8 @@ const { FormRow } = Forms;
 const Icon = findByName("Icon");
 const LinkIcon = getAssetIDByName("toast_copy_link");
 
-export default function JumpReferenceButton(referenceURL, onClose) {
-  return <FormRow
+export default function JumpReferenceButton(type, referenceURL, onClose) {
+  const row = <FormRow
     label={"Jump To Reference"}
     leading={<Icon source={getAssetIDByName("ic_link_24px")} />}
     onPress={() => {
@@ -22,4 +22,12 @@ export default function JumpReferenceButton(referenceURL, onClose) {
       onClose();
     }}
   />
+
+  // Fix for 188.6+, maybe there is a better one?
+  row.type = type;
+  row.props.message = row.props.label;
+  row.props.iconSource = row.props.leading.props.source;
+  row.props.onPressRow = row.props.onPress;
+
+  return row;
 }
