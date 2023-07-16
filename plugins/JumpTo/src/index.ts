@@ -44,7 +44,7 @@ export default {
             const reference = message.messageReference;
             const referenceURL = buildMessageURL(reference.guild_id, reference.channel_id, reference.message_id);
             
-            buttons.push(JumpReferenceButton(refButton?.type, referenceURL, closeSheet));
+            buttons.push(JumpReferenceButton(referenceURL, closeSheet));
           });
         });
       })
