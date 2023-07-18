@@ -11,8 +11,13 @@ export default function JumpStarterSection(actions, firstMessageURL, onClose) {
 
   return <ActionsSection key="jumpstartervd">
     <FormRow
-      leading={<FormIcon source={getAssetIDByName("ic_link_24px")} />}
       label={"Jump To Starter Message"}
+      leading={
+        <FormIcon
+          source={getAssetIDByName("ic_link_24px")}
+          style={{ opacity: 1 }}
+        />
+      }
       onPress={() => {
         url.openDeeplink(firstMessageURL);
         // calling onClose here is not required

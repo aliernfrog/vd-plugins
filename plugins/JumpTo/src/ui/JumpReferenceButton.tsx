@@ -9,7 +9,12 @@ const LinkIcon = getAssetIDByName("toast_copy_link");
 export default function JumpReferenceButton(referenceURL, onClose) {
   return <FormRow
     label={"Jump To Reference"}
-    leading={<FormIcon source={getAssetIDByName("ic_link_24px")} />}
+    leading={
+      <FormIcon
+        source={getAssetIDByName("ic_link_24px")}
+        style={{ opacity: 1 }}
+      />
+    }
     onPress={() => {
       url.openDeeplink(referenceURL);
       // calling onClose here is not required
