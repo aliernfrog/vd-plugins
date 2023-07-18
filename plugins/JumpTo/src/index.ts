@@ -33,13 +33,11 @@ export default {
           const unpatch = after("default", instance, (_, component) => {
             React.useEffect(() => () => { unpatch() }, []); // omg;!!!!!!!!!!!!!
             const [msgProps, buttons] = component.props?.children?.props?.children?.props?.children;
-
+            
             const message = msgProps?.props?.message ?? actionMessage?.message;
             
             if (!message || !buttons) return;
             if (!message.messageReference?.message_id) return;
-
-            const refButton = buttons.find(b => !!b.props.message);
             
             const reference = message.messageReference;
             const referenceURL = buildMessageURL(reference.guild_id, reference.channel_id, reference.message_id);
