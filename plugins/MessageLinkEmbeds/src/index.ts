@@ -14,7 +14,6 @@ const { resolveSemanticColor } = findByProps("colors", "meta").meta;
 const messageLinkRegex = /(?<!<)https?:\/\/(?:\w+\.)?discord(?:app)?\.com\/channels\/(\d{17,20}|@me)\/(\d{17,20})\/(\d{17,20})/g;
 
 const messageCache = new Map();
-const regeneratedMessages = [];
 
 let textColor;
 let textColorTheme;
@@ -110,8 +109,6 @@ async function fetchMessage(channelId, messageId) {
 }
 
 function regenerateMessage(message) {
-  if (regeneratedMessages.includes(message.id)) return;
-  regeneratedMessages.push(message.id);
   FluxDispatcher.dispatch({
     type: "MESSAGE_UPDATE",
     message: {
