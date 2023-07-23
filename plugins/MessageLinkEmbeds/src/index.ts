@@ -40,7 +40,9 @@ const patch = vendetta.patcher.after("generate", RowManager.prototype, ([data], 
   messages?.forEach(obj => {
     // Awaiting the response makes it impossible to add embeds,
     // so do a fake edit and make it re-generate the row
-    if (!messageCache.has(obj.messageId)) return fetchMessage(obj.channelId, obj.messageId);
+    if (!messageCache.has(obj.messageId)) return fetchMessage(obj.channelId, obj.messageId)
+      .then(() => regenerateMessage(data.message));
+    
     const cachedMessage = messageCache.get(obj.messageId);
     if (!cachedMessage) return;
 
@@ -83,7 +85,6 @@ const patch = vendetta.patcher.after("generate", RowManager.prototype, ([data], 
       },
       bodyTextColor: resolveTextColor()
     });
-    regenerateMessage(data?.message);
   });
 });
 
@@ -114,8 +115,8 @@ function regenerateMessage(message) {
   FluxDispatcher.dispatch({
     type: "MESSAGE_UPDATE",
     message: {
-      ... message,
-      content: message.content+" "
+      ...message,
+      content: message.content+"\u200b"
     },
     log_edit: false
   });
