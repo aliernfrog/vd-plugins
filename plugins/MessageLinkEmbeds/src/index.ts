@@ -45,6 +45,9 @@ const patch = vendetta.patcher.after("generate", RowManager.prototype, ([data], 
     const cachedMessage = messageCache.get(obj.messageId);
     if (!cachedMessage) return;
 
+    // Return if rendering content only
+    if (component.message.renderContentOnly != false) return;
+
     /*const images = cachedMessage.attachments
       ?.filter?.(a => a.content_type?.startsWith("image/"))
       ?.map?.(attachment => ({
