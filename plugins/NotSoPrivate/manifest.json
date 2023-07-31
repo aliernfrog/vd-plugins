@@ -1,6 +1,6 @@
 {
   "name": "NotSoPrivate",
-  "description": "A plugin that is supposed to be private, but it's actually public.",
+  "description": "A deprecated plugin that is supposed to be private, but it's actually public.",
   "authors": [
     {
       "name": "aliernfrog",
