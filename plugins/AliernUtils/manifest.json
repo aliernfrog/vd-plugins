@@ -1,0 +1,14 @@
+{
+  "name": "AliernUtils",
+  "description": "All-in-one utils.",
+  "authors": [
+    {
+      "name": "aliernfrog",
+      "id": "459370047652102154"
+    }
+  ],
+  "main": "src/index.ts",
+  "vendetta": {
+    "icon": "RobotIcon"
+  }
+}
