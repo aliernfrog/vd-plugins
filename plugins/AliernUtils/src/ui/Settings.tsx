@@ -18,7 +18,11 @@ export default function Settings(reloadPatches) {
         <FormSwitchRow
           label="Tabs v2"
           subLabel="Enable Tabs v2"
-          leading={getAssetIDByName("ic_mobile_device")}
+          leading={
+            <FormIcon
+              source={getAssetIDByName("ic_mobile_device")}
+            />
+          }
           value={storage.AlwaysTabsV2}
           onValueChange={(v) => {
             storage.AlwaysTabsV2 = v;
@@ -28,7 +32,11 @@ export default function Settings(reloadPatches) {
         <FormSwitchRow
           label="Chat animations (Android)"
           subLabel="Enable chat animations for Android"
-          leading={getAssetIDByName("ic_chat")}
+          leading={
+            <FormIcon
+              source={getAssetIDByName("ic_chat")}
+            />
+          }
           value={storage.ChatAnimations}
           onValueChange={(v) => {
             storage.ChatAnimations = v;
