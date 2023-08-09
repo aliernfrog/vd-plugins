@@ -4,15 +4,11 @@ import { storage } from "@vendetta/plugin";
 const { ChatListAnimationExperiment } = findByProps("ChatListAnimationExperiment");
 
 export default function () {
-  if (!storage.ChatAnimations) return;
-
   const config = ChatListAnimationExperiment.getCurrentConfig();
-  const originalValue = config.shouldAnimateAndroid;
-  if (originalValue) return; // Chat animations already enabled
   
-  config.shouldAnimateAndroid = true;
+  config.shouldAnimateAndroid = storage.ChatAnimations;
   
   return function () {
-    config.shouldAnimateAndroid = originalValue;
+    config.shouldAnimateAndroid = false;
   }
 }
