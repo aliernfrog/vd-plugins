@@ -4,11 +4,16 @@ import { storage } from "@vendetta/plugin";
 const { ChatListAnimationExperiment } = findByProps("ChatListAnimationExperiment");
 
 export default function () {
-  const config = ChatListAnimationExperiment.getCurrentConfig();
+  // TODO this crashes on 194.7
+  try {
+    const config = ChatListAnimationExperiment.getCurrentConfig();
   
-  config.shouldAnimateAndroid = storage.ChatAnimations;
+    config.shouldAnimateAndroid = storage.ChatAnimations;
   
-  return function () {
-    config.shouldAnimateAndroid = false;
+    return () => {
+      config.shouldAnimateAndroid = false;
+    }
+  } catch () {
+    return () => {}
   }
 }

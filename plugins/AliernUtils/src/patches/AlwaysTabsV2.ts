@@ -6,7 +6,7 @@ const { toggleTabsUIManually } = findByProps("toggleTabsUIManually");
 export default function () {
   toggleTabsUIManually(storage.AlwaysTabsV2);
 
-  return function () {
+  return () => {
     toggleTabsUIManually(false);
   }
 }
