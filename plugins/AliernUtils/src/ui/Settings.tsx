@@ -49,7 +49,7 @@ export default function Settings(reloadPatches) {
       <FormSection title="Misc">
         <FormSwitchRow
           label="Reload experiments plugin"
-          subLabel="Reloads experiments plugin after 5 seconds"
+          subLabel="Reload experiments plugin after 15 seconds"
           leading={
             <FormIcon
               source={getAssetIDByName("ic_cog_24px")}

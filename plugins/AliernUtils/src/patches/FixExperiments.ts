@@ -11,7 +11,7 @@ export default function () {
   setTimeout(() => {
     fixed = true;
     startPlugin(EXPERIMENTS_URL);
-  }, 5000);
+  }, 15000);
 
   return () => {};
 }
