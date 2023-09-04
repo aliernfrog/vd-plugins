@@ -32,6 +32,7 @@ export default {
           const unpatch = after("default", instance, (_, component) => {
             React.useEffect(() => () => { unpatch() }, []); // omg;!!!!!!!!!!!!!
             const buttons = findInReactTree(component, (t) => t?.[0]?.type?.name === "ButtonRow");
+            const ButtonRow = buttons.find(b => b.type.name === "ButtonRow").type;
             
             const message = msg?.message;
             
@@ -41,7 +42,7 @@ export default {
             const reference = message.messageReference;
             const referenceURL = buildMessageURL(reference.guild_id, reference.channel_id, reference.message_id);
 
-            buttons.push(JumpReferenceButton(referenceURL, closeSheet));
+            buttons.push(JumpReferenceButton(ButtonRow, referenceURL, closeSheet));
           });
         });
       })
