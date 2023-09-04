@@ -26,22 +26,21 @@ export default {
         actions.unshift(JumpStarterSection(actions, firstMessageURL, closeSheet));
       }),
       
-      before("openLazy", ActionSheet, (ctx) => {
-        const [component, args, actionMessage] = ctx;
+      before("openLazy", ActionSheet, ([component, args, msg]) => {
         if (args != "MessageLongPressActionSheet") return;
         component.then(instance => {
           const unpatch = after("default", instance, (_, component) => {
             React.useEffect(() => () => { unpatch() }, []); // omg;!!!!!!!!!!!!!
-            const [msgProps, buttons] = component.props?.children?.props?.children?.props?.children;
+            const buttons = findInReactTree(component, (t) => t?.[0]?.type?.name === "ButtonRow");
             
-            const message = msgProps?.props?.message ?? actionMessage?.message;
+            const message = msg?.message;
             
             if (!message || !buttons) return;
             if (!message.messageReference?.message_id) return;
             
             const reference = message.messageReference;
             const referenceURL = buildMessageURL(reference.guild_id, reference.channel_id, reference.message_id);
-            
+
             buttons.push(JumpReferenceButton(referenceURL, closeSheet));
           });
         });
