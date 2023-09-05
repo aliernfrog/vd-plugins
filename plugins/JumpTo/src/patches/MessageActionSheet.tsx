@@ -30,7 +30,6 @@ export default before("openLazy", ActionSheet, ([comp, args, msg]) => {
         if (!child) return false;
         ButtonRow = child.type;
         IconComponent = child.props.IconComponent;
-        console.log(IconComponent)
         return true;
       });
 
