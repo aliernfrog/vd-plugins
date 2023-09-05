@@ -3,5 +3,5 @@ export function buildMessageURL(guild, channel, message) {
 }
 
 export function buildStarterURL(thread) {
-  return buildMessageURL(thread.guildId, thread.id, thread.id);
+  return buildMessageURL(thread.guild_id, thread.id, thread.id);
 }

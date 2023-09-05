@@ -58,8 +58,6 @@ export default before("openLazy", ActionSheet, ([comp, args, msg]) => {
           />
         </TouchableOpacity>
       );
-
-      console.log(buttons.slice(-3))
     });
   });
 });
