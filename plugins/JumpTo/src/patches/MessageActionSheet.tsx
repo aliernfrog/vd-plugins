@@ -9,6 +9,7 @@ import { buildMessageURL } from "../utils";
 
 const { TouchableOpacity } = General;
 const ActionSheet = findByProps("openLazy", "hideActionSheet");
+const CopyIcon = getAssetIDByName("ic_copy_message_link");
 const LinkIcon = getAssetIDByName("toast_copy_link");
 
 export default before("openLazy", ActionSheet, ([comp, args, msg]) => {
@@ -22,11 +23,14 @@ export default before("openLazy", ActionSheet, ([comp, args, msg]) => {
 
       const buttons = findInReactTree(component, (c) => {
         const child = c?.find?.(child =>
-          child.type.name === "ButtonRow" && child.props.IconComponent
+          child.props?.iconSource === CopyIcon
+        ) ?? c?.find?.(child =>
+          child.type?.name === "ButtonRow" && child.props?.IconComponent
         );
         if (!child) return false;
         ButtonRow = child.type;
         IconComponent = child.props.IconComponent;
+        console.log(IconComponent)
         return true;
       });
 
@@ -49,11 +53,13 @@ export default before("openLazy", ActionSheet, ([comp, args, msg]) => {
         >
           <ButtonRow
             message={"Jump To Reference"}
-            iconSource={getAssetIDByName("ic_copy_message_link")}
+            iconSource={CopyIcon}
             IconComponent={IconComponent}
           />
         </TouchableOpacity>
       );
+
+      console.log(buttons.slice(-3))
     });
   });
 });
