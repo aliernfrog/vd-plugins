@@ -2,7 +2,7 @@ import { find, findByProps, findByStoreName } from "@vendetta/metro";
 import { instead } from "@vendetta/patcher";
 import { storage } from "@vendetta/plugin";
 import { showConfirmationAlert } from "@vendetta/ui/alerts";
-import { defaultStickerURL, buildStickerURL, isStickerAvailable } from "./utils";
+import { buildStickerURL, isStickerAvailable } from "./utils";
 import Settings from "./ui/Settings";
 
 // On 194.4+, this nitro module is frozen
@@ -14,54 +14,42 @@ nitroModule.default = { ... nitroModule.default }
 const messageModule = findByProps("sendMessage", "receiveMessage");
 const { getStickerById } = findByStoreName("StickersStore");
 
-const patches = [];
-
-export default {
-  onLoad: () => {
-    storage.stickerURL ??= defaultStickerURL;
-    
-    patches.push(
-      instead("canUseStickersEverywhere", nitroModule.default, () => true)
-    );
-    
-    patches.push(instead("sendStickers", messageModule, (args, orig) => {
-      const [ channelId, stickerIds, _, extra ] = args;
-      
-      const stickers = stickerIds.map(stickerId => getStickerById(stickerId));
-      const stickersToModify = stickers.filter(sticker => !isStickerAvailable(sticker, channelId));
-      if (!stickersToModify.length) return orig(...args);
-
-      const sendStickers = (confirmedDialog) => {
-        if (confirmedDialog) storage.acknowledgedApng = true;
-        const newContent = stickersToModify.map(sticker => buildStickerURL(storage.stickerURL, sticker)).join("\n");
-        messageModule.sendMessage(
-          channelId,
-          {
-            content: newContent
-          },
-          null,
-          extra
-        );
-      }
-
-      const showApngConfirmation = (!!stickersToModify.find(sticker => sticker.format_type == 2)) && !storage.acknowledgedApng;
-      if (showApngConfirmation) {
-        showConfirmationAlert({
-          title: "APNG Stickers",
-          content: "APNG stickers are not supported by FreeStickers and will be non-animated in chat. Do you want to send them anyway?",
-          confirmText: "Send anyway",
-          cancelText: "Cancel",
-          onConfirm: () => {
-            sendStickers(true)
-          }
-        })
-      } else sendStickers();
-    }));
-  },
+const patches = [
+  instead("canUseStickersEverywhere", nitroModule.default, () => true),
   
-  onUnload: () => {
-    patches.forEach(unpatch => unpatch?.());
-  },
+  instead("sendStickers", messageModule, (args, orig) => {
+    const [ channelId, stickerIds, _, extra ] = args;
+    
+    const stickers = stickerIds.map(stickerId => getStickerById(stickerId));
+    const stickersToModify = stickers.filter(sticker => !isStickerAvailable(sticker, channelId));
+    if (!stickersToModify.length) return orig(...args);
 
-  settings: Settings
-}
+    const sendStickers = (confirmedDialog) => {
+      if (confirmedDialog) storage.acknowledgedApng = true;
+      const newContent = stickersToModify.map(sticker => buildStickerURL(storage.stickerURL, sticker)).join("\n");
+      messageModule.sendMessage(
+        channelId,
+        {
+          content: newContent
+        },
+        null,
+        extra
+      );
+    }
+
+    const showApngConfirmation = stickersToModify.find(sticker => sticker.format_type == 2) && !storage.acknowledgedApng;
+    if (!showApngConfirmation) sendStickers();
+    else showConfirmationAlert({
+      title: "APNG Stickers",
+      content: "APNG stickers are not supported by FreeStickers and will be non-animated in chat. Do you want to send them anyway?",
+      confirmText: "Send anyway",
+      cancelText: "Cancel",
+      onConfirm: () => {
+        sendStickers(true);
+      }
+    });
+  })
+];
+
+export const settings = Settings;
+export const onUnload = () => patches.forEach(p => p?.());

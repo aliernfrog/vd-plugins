@@ -7,6 +7,8 @@ import { defaultStickerURL } from "../utils";
 const { FormInput, FormRow, FormSection, FormSwitchRow, FormText } = Forms;
 const { ScrollView } = General;
 
+storage.stickerURL ??= defaultStickerURL;
+
 export default function Settings() {
   useProxy(storage);
   
@@ -16,7 +18,7 @@ export default function Settings() {
         placeholder={defaultStickerURL}
         value={storage.stickerURL}
         onChange={v => {
-          storage.stickerURL = v == "" ? defaultStickerURL : v;
+          storage.stickerURL = (v == "") ? defaultStickerURL : v;
         }}
       />
       <FormText style={{ paddingHorizontal: 14 }}>{[
