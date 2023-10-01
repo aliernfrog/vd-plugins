@@ -8,6 +8,7 @@ const { ScrollView } = General;
 
 storage.AlwaysTabsV2 ??= true;
 storage.ChatAnimations ??= true;
+storage.NoLinkMarkdown ??= false;
 
 export default function Settings(reloadPatches) {
   return () => {
@@ -40,6 +41,18 @@ export default function Settings(reloadPatches) {
           value={storage.ChatAnimations}
           onValueChange={(v) => {
             storage.ChatAnimations = v;
+            reloadPatches();
+          }}
+        />
+      </FormSection>
+
+      <FormSection title="Misc">
+        <FormSwitchRow
+          label="Disable message link markdown"
+          subLabel="Disable markdown for message links"
+          value={storage.NoLinkMarkdown}
+          onValueChange={(v) => {
+            storage.NoLinkMarkdown = v;
             reloadPatches();
           }}
         />
