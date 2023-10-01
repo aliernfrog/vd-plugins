@@ -8,7 +8,6 @@ const { ScrollView } = General;
 
 storage.AlwaysTabsV2 ??= true;
 storage.ChatAnimations ??= true;
-storage.FixExperiments ??= true;
 
 export default function Settings(reloadPatches) {
   return () => {
@@ -41,23 +40,6 @@ export default function Settings(reloadPatches) {
           value={storage.ChatAnimations}
           onValueChange={(v) => {
             storage.ChatAnimations = v;
-            reloadPatches();
-          }}
-        />
-      </FormSection>
-      
-      <FormSection title="Misc">
-        <FormSwitchRow
-          label="Reload experiments plugin"
-          subLabel="Reload experiments plugin after 15 seconds"
-          leading={
-            <FormIcon
-              source={getAssetIDByName("ic_cog_24px")}
-            />
-          }
-          value={storage.FixExperiments}
-          onValueChange={(v) => {
-            storage.FixExperiments = v;
             reloadPatches();
           }}
         />
