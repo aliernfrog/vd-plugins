@@ -1,0 +1,14 @@
+{
+  "name": "MessageActionSheetPreview",
+  "description": "Adds preview for selected message in action sheet.",
+  "authors": [
+    {
+      "name": "aliernfrog",
+      "id": "459370047652102154"
+    }
+  ],
+  "main": "src/index.tsx",
+  "vendetta": {
+    "icon": "ic_link_24px"
+  }
+}
