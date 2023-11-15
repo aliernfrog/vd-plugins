@@ -14,9 +14,12 @@ nitroModule.default = { ... nitroModule.default }
 const messageModule = findByProps("sendMessage", "receiveMessage");
 const { getStickerById } = findByStoreName("StickersStore");
 
+// Somewhere after 204.0, Discord renamed the method
+// "canUseStickersEverywhere" -> "canUseCustomStickersEverywhere"
+// Check if old method exists, use new method name if not
 const OLD_CHECK_NAME = "canUseStickersEverywhere";
 const NEW_CHECK_NAME = "canUseCustomStickersEverywhere";
-const CHECK_NAME = nitroModule[OLD_CHECK_NAME] ? OLD_CHECK_NAME : NEW_CHECK_NAME;
+const CHECK_NAME = nitroModule?.default[OLD_CHECK_NAME] ? OLD_CHECK_NAME : NEW_CHECK_NAME;
 
 const patches = [
   instead(CHECK_NAME, nitroModule.default, () => true),
