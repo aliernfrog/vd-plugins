@@ -1,12 +1,10 @@
-> [!WARNING]
-> This repository is now discontinued and will soon be archived. Development will continue on my new [discord-addons](https://github.com/aliernfrog/discord-addons) repository.
-> 
-> Soon™️, plugins in this repository will ask you to migrate to the ones in the new repository (only if you use unproxied versions).
-
-# VD Plugins
-This repo contains my [Vendetta](https://github.com/vendetta-mod/Vendetta) plugins.
+# Vendetta Plugins
+This repo contains my plugins for [Pyoncord](https://github.com/pyoncord/Pyoncord) and [Vendetta](https://github.com/vendetta-mod/Vendetta), also possibly other forks.
 
 # How to install?
-Paste a plugin URL into the Plugins page of Vendetta, following a basic format of:
-
+## Pyoncord
+Go to Settings > Plugins, click the floating action button at bottom right, then paste the URL of the plugin you want to install.
+## Vendetta
+Go to Settings > Plugins, click the install button at the top bar, then paste the URL of the plugin you want to install.
+## Plugin URL
 https://aliernfrog.github.io/vd-plugins/PLUGIN_NAME
