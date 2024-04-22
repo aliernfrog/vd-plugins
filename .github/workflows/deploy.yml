@@ -21,15 +21,9 @@ jobs:
 
             - name: Install deps
               run: pnpm m i
-              
-            - name: Copy static files
-              run: cp -r static dist
 
             - name: Build plugins
               run: node ./build.mjs
-
-            - name: Build themes
-              run: node ./themes/build.js
 
               # Foolproof feature:
               # - Copies over README so that the root of the deployed website shows it
