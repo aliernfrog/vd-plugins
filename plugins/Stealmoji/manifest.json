@@ -1,6 +1,6 @@
 {
   "name": "Stealmoji",
-  "description": "Steal emoji on mobile with ease.",
+  "description": "Steal emojis on mobile with ease.",
   "authors": [
     {
       "name": "Fiery",
@@ -9,6 +9,10 @@
     {
       "name": "pylix",
       "id": "492949202121261067"
+    },
+    {
+      "name": "aliernfrog",
+      "id": "459370047652102154"
     }
   ],
   "main": "index.ts",
