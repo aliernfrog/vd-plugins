@@ -45,7 +45,6 @@ function patchSheet(funcName: string, sheetModule: any, once = false) {
         
         const unpatchView = after("type", view, (_, component) => {
           React.useEffect(() => unpatchView, []);
-          console.log(component);
           
           // Open the media modal when the emote is pressed
           const isIconComponent = (c) => c?.props?.source?.uri;
