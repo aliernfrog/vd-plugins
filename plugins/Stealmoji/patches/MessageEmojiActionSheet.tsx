@@ -58,13 +58,16 @@ function patchSheet(funcName: string, sheetModule: any, once = false) {
             )
           }
           
-          // Find any button and add things to its container
+          // If a button is found, add StealButtons to its container, otherwise add to bottom
           const isButton = (c) => c?.type?.name === "Button";
           const buttonsContainer = findInReactTree(component, (c) => c?.find?.(isButton));
           const buttonIndex = buttonsContainer?.findLastIndex?.(isButton) ?? -1;
           if (buttonIndex >= 0) {
-            const sample = buttonsContainer[buttonIndex];
             buttonsContainer.splice(buttonIndex+1, 0, (
+              <StealButtons emojiNode={emojiNode} />
+            ));
+          } else {
+            component?.props?.children?.push?.((
               <StealButtons emojiNode={emojiNode} />
             ));
           }
