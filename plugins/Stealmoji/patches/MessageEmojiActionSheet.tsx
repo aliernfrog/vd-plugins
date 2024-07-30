@@ -49,7 +49,7 @@ function patchSheet(funcName: string, sheetModule: any, once = false) {
           // Open the media modal when the emote is pressed
           const isIconComponent = (c) => c?.props?.source?.uri;
           const iconContainer = findInReactTree(component, (c) => c?.find?.(isIconComponent));
-          const iconComponentIndex = iconContainer.findIndex(isIconComponent);
+          const iconComponentIndex = iconContainer?.findIndex?.(isIconComponent) ?? -1;
           if (iconComponentIndex >= 0) {
             iconContainer[iconComponentIndex] = (
               <TouchableOpacity onPress={() => openMediaModal(emojiNode.src.split("?")[0])}>
@@ -61,7 +61,7 @@ function patchSheet(funcName: string, sheetModule: any, once = false) {
           // Find any button and add things to its container
           const isButton = (c) => c?.type?.name === "Button";
           const buttonsContainer = findInReactTree(component, (c) => c?.find?.(isButton));
-          const buttonIndex = buttonsContainer.findLastIndex(isButton);
+          const buttonIndex = buttonsContainer?.findLastIndex?.(isButton) ?? -1;
           if (buttonIndex >= 0) {
             const sample = buttonsContainer[buttonIndex];
             buttonsContainer.splice(buttonIndex+1, 0, (
