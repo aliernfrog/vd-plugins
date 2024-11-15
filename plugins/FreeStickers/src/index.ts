@@ -87,8 +87,8 @@ const patches = [
       showConfirmationAlert({
         title: "APNG Stickers",
         content:
-          "APNG stickers will be converted to GIF format. Do you want to continue?",
-        confirmText: "Send anyway",
+          "APNG stickers will be converted to GIF using Ezgif and an Ezgif link will be sent in chat. Do you want to continue?",
+        confirmText: "Continue",
         cancelText: "Cancel",
         onConfirm: () => {
           sendStickers(true);

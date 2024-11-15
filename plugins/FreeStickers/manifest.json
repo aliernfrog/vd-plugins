@@ -3,8 +3,12 @@
   "description": "Lets you use stickers without Nitro.",
   "authors": [
     {
-      "name": "aliernfrog, Cristiandis",
+      "name": "aliernfrog",
       "id": "459370047652102154"
+    },
+    {
+      "name": "Cristiandis",
+      "id": "559776692240121866",
     }
   ],
   "main": "src/index.ts",
