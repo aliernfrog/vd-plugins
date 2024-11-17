@@ -26,17 +26,17 @@ export async function convertToGIF(stickerUrl) {
       method: "POST",
       body: form
     });
-    let file_id = response.url.split("/").pop();
+    const fileId = response.url.split("/").pop();
 
     // Convert uploaded APNG to GIF
     form = new FormData();
-    form.append("file", file_id);
+    form.append("file", fileId);
     form.append("size", "160");
-    response = await fetch(`https://ezgif.com/apng-to-gif/${file_id}?ajax=true`, {
+    response = await fetch(`https://ezgif.com/apng-to-gif/${fileId}?ajax=true`, {
       method: "POST",
       body: form
     });
-    let content = await response.text();
+    const content = await response.text();
     return `https:${content.split('<img src="')[1].split('" style=')[0]}`;
   } catch (e) {
     logger.error(`Failed to convert ${stickerUrl} to GIF: `, e);
