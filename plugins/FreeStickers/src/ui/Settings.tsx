@@ -18,15 +18,16 @@ export default function Settings() {
   
   return <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 38 }}>
     <Stack style={{ paddingVertical: 24, paddingHorizontal: 12 }} spacing={24}>
-      <TableRowGroup title="Options">
+      <TableRowGroup title="APNG Stickers">
+        <TableSwitchRow
+          label="Send static sticker if APNG conversion fails"
+          value={storage.staticApngOnFail}
+          onValueChange={v => storage.staticApngOnFail = v} />
         <TableSwitchRow
           label="Show warning dialog for APNG stickers"
           subLabel="This will only appear once"
           value={!storage.ackedApng}
-          onValueChange={(v: boolean) => {
-            storage.ackedApng = !v;
-          }}
-        />
+          onValueChange={v => storage.ackedApng = !v} />
       </TableRowGroup>
       <TableRadioGroup
         title="Stickers Size"
