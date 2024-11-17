@@ -15,7 +15,7 @@ export function isStickerAvailable(sticker, channelId) {
 export function buildStickerURL(sticker) {
   return baseStickerURL
     .replace("{stickerId}", sticker.id)
-    .replace("{size}", storage.size.toString());
+    .replace("{size}", storage.stickerSize.toString());
 }
 
 export async function convertToGIF(stickerUrl) {
@@ -32,7 +32,7 @@ export async function convertToGIF(stickerUrl) {
     // Convert uploaded APNG to GIF
     form = new FormData();
     form.append("file", fileId);
-    form.append("size", storage.size.toString());
+    form.append("size", storage.stickerSize.toString());
     response = await fetch(`https://ezgif.com/apng-to-gif/${fileId}?ajax=true`, {
       method: "POST",
       body: form

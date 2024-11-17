@@ -28,7 +28,7 @@ export default () => instead("sendStickers", MessageModule, (args, orig) => {
         let cached = APNGCache.get(stickerURL);
         if (!cached) {
           showToast("Converting APNG sticker to GIF..");
-          let gif = await convertToGIF(stickerURL);
+          const gif = await convertToGIF(stickerURL);
           if (!gif) showApngFail();
           else APNGCache.set(stickerURL, gif);
           cached = gif;

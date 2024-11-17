@@ -22,9 +22,9 @@ function showNewDialog({
           text={confirmText}
           variant="primary"
           onPress={onConfirm} />
-        <AlertActionButton
+        {cancelText ? <AlertActionButton
           text={cancelText}
-          variant="secondary" />
+          variant="secondary" /> : <></>}
       </Stack>
     }
   />);
