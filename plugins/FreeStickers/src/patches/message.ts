@@ -23,7 +23,7 @@ export default () => instead("sendStickers", MessageModule, (args, orig) => {
     
     for (const sticker of toModify) {
       let stickerURL = buildStickerURL(sticker);
-      if (sticker.format_type === 2) {
+      if (sticker.format_type === 2 && storage.convertApng) {
         // APNG needs to be converted to GIF
         let cached = APNGCache.get(stickerURL);
         if (!cached) {

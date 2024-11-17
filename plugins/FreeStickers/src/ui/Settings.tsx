@@ -11,6 +11,7 @@ const sizes = [
   16, 32, 64, 128, 160, 256, 512, 1024
 ];
 
+storage.convertApng ??= true;
 storage.stickerSize ??= 160;
 
 export default function Settings() {
@@ -19,6 +20,11 @@ export default function Settings() {
   return <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 38 }}>
     <Stack style={{ paddingVertical: 24, paddingHorizontal: 12 }} spacing={24}>
       <TableRowGroup title="APNG Stickers">
+        <TableSwitchRow
+          label="Convert APNG stickers to GIF"
+          subLabel="This is needed for stickers to be animated (uses Ezgif)."
+          value={storage.convertApng}
+          onValueChange={v => storage.convertApng = v} />
         <TableSwitchRow
           label="Send static sticker if APNG conversion fails"
           value={storage.staticApngOnFail}
