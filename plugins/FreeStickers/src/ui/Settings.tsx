@@ -12,6 +12,7 @@ const sizes = [
 ];
 
 storage.convertApng ??= true;
+storage.hyperlink ??= true;
 storage.stickerSize ??= 160;
 
 export default function Settings() {
@@ -19,6 +20,13 @@ export default function Settings() {
   
   return <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 38 }}>
     <Stack style={{ paddingVertical: 24, paddingHorizontal: 12 }} spacing={24}>
+      <TableRowGroup title="General">
+        <TableSwitchRow
+          label="Hyperlink stickers"
+          description="Useful when the embed fails 🫨"
+          value={storage.hyperlink}
+          onValueChange={v => storage.hyperlink = v} />
+      </TableRowGroup>
       <TableRowGroup title="APNG Stickers">
         <TableSwitchRow
           label="Convert APNG stickers to GIF"
