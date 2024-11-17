@@ -1,5 +1,6 @@
 import { logger } from "@vendetta";
 import { findByStoreName } from "@vendetta/metro";
+import { storage } from "@vendetta/plugin";
 
 const { getChannel } = findByStoreName("ChannelStore");
 
@@ -14,7 +15,7 @@ export function isStickerAvailable(sticker, channelId) {
 export function buildStickerURL(sticker) {
   return baseStickerURL
     .replace("{stickerId}", sticker.id)
-    .replace("{size}", "160");
+    .replace("{size}", storage.size.toString());
 }
 
 export async function convertToGIF(stickerUrl) {
@@ -31,7 +32,7 @@ export async function convertToGIF(stickerUrl) {
     // Convert uploaded APNG to GIF
     form = new FormData();
     form.append("file", fileId);
-    form.append("size", "160");
+    form.append("size", storage.size.toString());
     response = await fetch(`https://ezgif.com/apng-to-gif/${fileId}?ajax=true`, {
       method: "POST",
       body: form

@@ -1,8 +1,12 @@
 import { findByProps, findByStoreName } from "@vendetta/metro";
 import { instead } from "@vendetta/patcher";
+import { storage } from "@vendetta/plugin";
 import { showToast } from "@vendetta/ui/toasts";
 import { buildStickerURL, convertToGIF, isStickerAvailable } from "../utils";
 import * as APNGCache from "../APNGCache";
+
+import showApngAlert from "../ui/ApngAlert";
+import showApngFail from "../ui/ApngFail";
 
 const MessageModule = findByProps("sendMessage", "receiveMessage");
 const { getStickerById } = findByStoreName("StickersStore");
@@ -24,8 +28,8 @@ export default () => instead("sendStickers", MessageModule, (args, orig) => {
         let cached = APNGCache.get(stickerURL);
         if (!cached) {
           showToast("Converting APNG sticker to GIF..");
-          const gif = await convertToGIF(stickerURL);
-          if (!gif) showToast("APNG conversion failed, check logs for more info");
+          let gif = await convertToGIF(stickerURL);
+          if (!gif) showApngFail();
           else APNGCache.set(stickerURL, gif);
           cached = gif;
         }
@@ -35,5 +39,7 @@ export default () => instead("sendStickers", MessageModule, (args, orig) => {
     }
   }
   
-  sendStickers();
+  const showApngConfirmation = toModify.find(s => s.format_type == 2) && !storage.ackedApng;
+  if (showApngConfirmation) showApngAlert(() => sendStickers(true));
+  else sendStickers();
 });
