@@ -4,7 +4,7 @@ import { storage } from "@vendetta/plugin";
 
 const { getChannel } = findByStoreName("ChannelStore");
 
-const baseStickerURL = "https://media.discordapp.net/stickers/{stickerId}.png?size={size}";
+const baseStickerURL = "https://media.discordapp.net/stickers/{stickerId}.{format}?size={size}";
 
 export function isStickerAvailable(sticker, channelId) {
   if (!sticker.guild_id) return true; // Not from a guild, default sticker. No Nitro needed.
@@ -13,8 +13,10 @@ export function isStickerAvailable(sticker, channelId) {
 }
 
 export function buildStickerURL(sticker) {
+  const format = (sticker.format_type === 4) ? "gif" : "png";
   return baseStickerURL
     .replace("{stickerId}", sticker.id)
+    .replace("{format}", format)
     .replace("{size}", storage.stickerSize.toString());
 }
 
