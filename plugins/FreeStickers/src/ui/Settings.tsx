@@ -23,9 +23,13 @@ export default function Settings() {
       <TableRowGroup title="General">
         <TableSwitchRow
           label="Hyperlink stickers"
-          description="Useful when the embed fails 🫨"
           value={storage.hyperlink}
           onValueChange={v => storage.hyperlink = v} />
+        <TableSwitchRow
+          label="Ignore Nitro"
+          subLabel="Force FreeStickers even when you have Nitro"
+          value={storage.ignoreNitro}
+          onValueChange={v => storage.ignoreNitro = v} />
       </TableRowGroup>
       <TableRowGroup title="APNG Stickers">
         <TableSwitchRow
