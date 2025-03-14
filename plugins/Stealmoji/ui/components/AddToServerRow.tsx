@@ -39,13 +39,13 @@ export default function AddToServerRow({ guild, emojiNode }: { guild: any, emoji
         LazyActionSheet.hideActionSheet();
     };
 
-    const slotsAvailable = React.useMemo(() => {
+    const slotsAvailable = guild.getMaxEmojiSlots ? React.useMemo(() => {
         const maxSlots = guild.getMaxEmojiSlots();
         const guildEmojis = EmojiStore.getGuilds()[guild.id]?.emojis ?? [];
         const isAnimated = emojiNode.src.includes(".gif");
 
         return guildEmojis.filter(e => e?.animated === isAnimated).length < maxSlots;
-    }, []);
+    }, []) : true;
 
     return (<FormRow
         leading={
