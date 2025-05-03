@@ -1,10 +1,10 @@
 import { findByName, findByProps } from "@vendetta/metro";
-import { clipboard, url } from "@vendetta/metro/common";
+import { clipboard } from "@vendetta/metro/common";
 import { after } from "@vendetta/patcher";
 import { getAssetIDByName } from "@vendetta/ui/assets";
 import { showToast } from "@vendetta/ui/toasts";
 import { findInReactTree } from "@vendetta/utils";
-import { buildStarterURL } from "../utils";
+import { buildStarterURL, openURL } from "../utils";
 
 const { hideActionSheet } = findByProps("openLazy", "hideActionSheet");
 const { ActionSheetRow } = findByProps("ActionSheetRow");
@@ -31,7 +31,7 @@ export default after("default", ForumPostLongPressActionSheet, ([{thread}], comp
           />
         }
         onPress={() => {
-          url.openDeeplink(starterURL);
+          openURL(starterURL);
         }}
         onLongPress={() => {
           clipboard.setString(starterURL);

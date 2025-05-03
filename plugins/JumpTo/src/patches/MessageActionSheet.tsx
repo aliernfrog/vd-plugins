@@ -1,10 +1,10 @@
 import { findByProps } from "@vendetta/metro";
-import { clipboard, url } from "@vendetta/metro/common";
+import { clipboard } from "@vendetta/metro/common";
 import { after, before } from "@vendetta/patcher";
 import { getAssetIDByName } from "@vendetta/ui/assets";
 import { showToast } from "@vendetta/ui/toasts";
 import { findInReactTree } from "@vendetta/utils";
-import { buildMessageURL } from "../utils";
+import { buildMessageURL, openURL } from "../utils";
 
 const ActionSheet = findByProps("openLazy", "hideActionSheet");
 const { ActionSheetRow } = findByProps("ActionSheetRow");
@@ -46,7 +46,7 @@ export default before("openLazy", ActionSheet, ([comp, args, msg]) => {
             ActionSheet.hideActionSheet();
           }}
           onPress={() => {
-            url.openDeeplink(referenceURL);
+            openURL(referenceURL);
           }}
         />
       ));
