@@ -9,7 +9,7 @@ import { buildStarterURL } from "../utils";
 const { hideActionSheet } = findByProps("openLazy", "hideActionSheet");
 const { ActionSheetRow } = findByProps("ActionSheetRow");
 const ForumPostLongPressActionSheet = findByName("ForumPostLongPressActionSheet", false);
-const CopyLinkIcon = getAssetIDByName("ic_copy_message_link");
+const CopyLinkIcon = getAssetIDByName("LinkIcon") ?? getAssetIDByName("ic_copy_message_link");
 const ToastLinkIcon = getAssetIDByName("toast_copy_link");
 
 export default after("default", ForumPostLongPressActionSheet, ([{thread}], component) => {
