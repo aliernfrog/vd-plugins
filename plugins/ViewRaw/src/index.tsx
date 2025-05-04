@@ -3,16 +3,15 @@ import { getAssetIDByName } from "@vendetta/ui/assets";
 import { findInReactTree } from "@vendetta/utils";
 import { findByName, findByProps } from "@vendetta/metro";
 import { React } from "@vendetta/metro/common";
-import { Forms } from "@vendetta/ui/components";
 import RawPage from "./RawPage";
 
 const ActionSheet = findByProps("openLazy", "hideActionSheet");
+const { ActionSheetRow } = findByProps("ActionSheetRow");
 const Navigation = findByProps("push", "pushLazy", "pop");
 const modalCloseButton =
   findByProps("getRenderCloseButton")?.getRenderCloseButton ??
   findByProps("getHeaderCloseButton")?.getHeaderCloseButton;
 const Navigator = findByName("Navigator") ?? findByProps("Navigator")?.Navigator;
-const { FormRow, FormIcon } = Forms;
 
 const unpatch = before("openLazy", ActionSheet, ([component, key, msg]) => {
   const message = msg?.message;
@@ -42,9 +41,13 @@ const unpatch = before("openLazy", ActionSheet, ([component, key, msg]) => {
       );
 
       buttons.push(
-        <FormRow
+        <ActionSheetRow
           label="View Raw"
-          leading={<FormIcon style={{ opacity: 1 }} source={getAssetIDByName("ic_chat_bubble_16px")} />}
+          icon={
+            <ActionSheetRow.Icon
+              source={getAssetIDByName("ChatIcon")}
+            />
+          }
           onPress={() => {
             ActionSheet.hideActionSheet();
             Navigation.push(navigator);
