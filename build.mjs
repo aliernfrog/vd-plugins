@@ -106,9 +106,10 @@ async function buildReadme() {
     const forkOf = plugin.aliern?.forkOf;
     
     return [
-      `## [${plugin.name}](${installURL})${forkOf ? "(fork) " : ""}`,
+      `## [${plugin.name}](${installURL})${forkOf ? " (fork)" : ""}`,
       forkOf ? `**Forked from: [${forkOf}](https://github.com/${forkOf})**` : null,
       plugin.description,
+      `\`${installURL}\``,
       `<button onClick="navigator.clipboard.writeText('${installURL}')">📥 Copy install URL</button> `
         + `<a href="${source}"><button>🧪 Source code</button></a>`
     ].filter(l => !!l).join("\n\n");
