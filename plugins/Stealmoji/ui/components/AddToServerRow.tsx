@@ -1,3 +1,4 @@
+import { findByProps } from "@vendetta/metro";
 import { React } from "@vendetta/metro/common";
 import { showInputAlert } from "@vendetta/ui/alerts";
 import { getAssetIDByName } from "@vendetta/ui/assets";
@@ -6,6 +7,7 @@ import { showToast } from "@vendetta/ui/toasts";
 import fetchImageAsDataURL from "../../lib/utils/fetchImageAsDataURL";
 import { EmojiStore, Emojis, GuildIcon, GuildIconSizes, LazyActionSheet } from "../../modules";
 
+const emojiSlotModule = findByProps("getMaxEmojiSlots");
 const { FormRow, FormIcon } = Forms;
 
 export default function AddToServerRow({ guild, emojiNode }: { guild: any, emojiNode: EmojiNode }) {
@@ -38,14 +40,23 @@ export default function AddToServerRow({ guild, emojiNode }: { guild: any, emoji
         // Close the sheet
         LazyActionSheet.hideActionSheet();
     };
-
-    const slotsAvailable = guild.getMaxEmojiSlots ? React.useMemo(() => {
-        const maxSlots = guild.getMaxEmojiSlots();
+    
+    let isSlotsUnknown = false;
+    const slotsAvailable = React.useMemo(() => {
+        let maxSlots = guild.getMaxEmojiSlots?.() ?? emojiSlotModule?.getMaxEmojiSlots?.(guild);
+        if (!maxSlots) {
+          if (!isSlotsUnknown) {
+            isSlotsUnknown = true;
+            showToast("Failed to check max emoji slots");
+          }
+          maxSlots = 250;
+        }
+        
         const guildEmojis = EmojiStore.getGuilds()[guild.id]?.emojis ?? [];
         const isAnimated = emojiNode.src.includes(".gif");
 
         return guildEmojis.filter(e => e?.animated === isAnimated).length < maxSlots;
-    }, []) : true;
+    }, []);
 
     return (<FormRow
         leading={
@@ -57,7 +68,7 @@ export default function AddToServerRow({ guild, emojiNode }: { guild: any, emoji
         }
         disabled={!slotsAvailable}
         label={guild.name}
-        subLabel={!slotsAvailable ? "No slots available" : void 0}
+        subLabel={!slotsAvailable ? "No slots available" : isSlotsUnknown ? "Failed to check max emoji slots" : void 0}
         trailing={<FormIcon style={{ opacity: 1 }} source={getAssetIDByName("ic_add_24px")} />}
         onPress={addToServerCallback}
     />)
