@@ -17,10 +17,14 @@ const { FormRow, FormIcon } = Forms;
 const unpatch = before("openLazy", ActionSheet, ([component, key, msg]) => {
   const message = msg?.message;
   if (key !== "MessageLongPressActionSheet" || !message) return;
+  
   component.then(instance => {
     const unpatch = after("default", instance, (_, component) => {
       React.useEffect(() => () => { unpatch() }, []);
-      const buttons = findInReactTree(component, x => x?.[0]?.type?.name === "ButtonRow");
+      
+      const buttons = findInReactTree(component,
+        c => c?.some?.(child => child?.type?.name === "ButtonRow" || child?.type?.name === "ActionSheetRow")
+      );
       if (!buttons) return;
 
       const navigator = () => (
