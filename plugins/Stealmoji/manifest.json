@@ -18,5 +18,8 @@
   "main": "index.ts",
   "vendetta": {
     "icon": "ic_emoji_24px"
+  },
+  "aliern": {
+    "forkOf": "Fierdetta/stealmoji"
   }
 }

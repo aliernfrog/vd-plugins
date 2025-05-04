@@ -18,5 +18,8 @@
   "main": "src/index.tsx",
   "vendetta": {
     "icon": "ic_chat_bubble_16px"
+  },
+  "aliern": {
+    "forkOf": "aeongdesu/vdplugins"
   }
 }
