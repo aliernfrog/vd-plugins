@@ -34,9 +34,9 @@ Steal emojis on mobile with ease.
 
 <button onClick="navigator.clipboard.writeText('https://aliernfrog.github.io/vd-plugins/Stealmoji')">📥 Copy install URL</button> <a href="https://github.com/aliernfrog/vd-plugins/tree/master/plugins/Stealmoji"><button>🧪 Source code</button></a>
 
-## [Summaries](https://aliernfrog.github.io/vd-plugins/Summaries)
+## [SummariesAlpha](https://aliernfrog.github.io/vd-plugins/Summaries)
 
-Lets you track Discord's experimental channel summaries
+Notifies you when a channel summary (experimental feature) is generated for channels you visit. This plugin is WIP and unstable.
 
 **Status:** 💣 Alpha (UNSTABLE)
 
