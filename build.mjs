@@ -104,11 +104,13 @@ async function buildReadme() {
     const installURL = `${pluginWebsite}/${plugin.id}`;
     const source = `${sourceWebsite}/${plugin.id}`;
     const forkOf = plugin.aliern?.forkOf;
+    const status = plugin.aliern?.status ?? "stable";
     
     return [
       `## [${plugin.name}](${installURL})${forkOf ? " (fork)" : ""}`,
       forkOf ? `**Forked from: [${forkOf}](https://github.com/${forkOf})**` : null,
       plugin.description,
+      `**Status:** ${status == "discontinued" ? "🪦 Discontinued" : status == "alpha" ? "💣 Alpha (UNSTABLE)" : "⛱️ Stable"}`,
       `\`${installURL}\``,
       `<button onClick="navigator.clipboard.writeText('${installURL}')">📥 Copy install URL</button> `
         + `<a href="${source}"><button>🧪 Source code</button></a>`

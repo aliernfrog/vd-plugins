@@ -1,0 +1,17 @@
+{
+  "name": "SummariesAlpha",
+  "description": "Notifies you when a channel summary (experimental feature) is generated for channels you visit. This plugin is WIP and unstable.",
+  "authors": [
+    {
+      "name": "aliernfrog",
+      "id": "459370047652102154"
+    }
+  ],
+  "main": "src/index.ts",
+  "vendetta": {
+    "icon": "ic_feedback"
+  },
+  "aliern": {
+    "status": "alpha"
+  }
+}

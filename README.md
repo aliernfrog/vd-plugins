@@ -6,6 +6,8 @@ This repo contains my plugins for [Revenge](https://github.com/revenge-mod) and 
 
 Lets you use stickers without Nitro.
 
+**Status:** ⛱️ Stable
+
 `https://aliernfrog.github.io/vd-plugins/FreeStickers`
 
 <button onClick="navigator.clipboard.writeText('https://aliernfrog.github.io/vd-plugins/FreeStickers')">📥 Copy install URL</button> <a href="https://github.com/aliernfrog/vd-plugins/tree/master/plugins/FreeStickers"><button>🧪 Source code</button></a>
@@ -13,6 +15,8 @@ Lets you use stickers without Nitro.
 ## [JumpTo](https://aliernfrog.github.io/vd-plugins/JumpTo)
 
 Lets you jump to referenced messages and beginning of forum posts.
+
+**Status:** ⛱️ Stable
 
 `https://aliernfrog.github.io/vd-plugins/JumpTo`
 
@@ -24,15 +28,29 @@ Lets you jump to referenced messages and beginning of forum posts.
 
 Steal emojis on mobile with ease.
 
+**Status:** ⛱️ Stable
+
 `https://aliernfrog.github.io/vd-plugins/Stealmoji`
 
 <button onClick="navigator.clipboard.writeText('https://aliernfrog.github.io/vd-plugins/Stealmoji')">📥 Copy install URL</button> <a href="https://github.com/aliernfrog/vd-plugins/tree/master/plugins/Stealmoji"><button>🧪 Source code</button></a>
+
+## [Summaries](https://aliernfrog.github.io/vd-plugins/Summaries)
+
+Lets you track Discord's experimental channel summaries
+
+**Status:** 💣 Alpha (UNSTABLE)
+
+`https://aliernfrog.github.io/vd-plugins/Summaries`
+
+<button onClick="navigator.clipboard.writeText('https://aliernfrog.github.io/vd-plugins/Summaries')">📥 Copy install URL</button> <a href="https://github.com/aliernfrog/vd-plugins/tree/master/plugins/Summaries"><button>🧪 Source code</button></a>
 
 ## [ViewRaw](https://aliernfrog.github.io/vd-plugins/ViewRaw) (fork)
 
 **Forked from: [aeongdesu/vdplugins](https://github.com/aeongdesu/vdplugins)**
 
 View raw message data
+
+**Status:** ⛱️ Stable
 
 `https://aliernfrog.github.io/vd-plugins/ViewRaw`
 
