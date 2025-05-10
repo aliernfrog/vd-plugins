@@ -2,7 +2,7 @@ import { findByProps } from "@vendetta/metro";
 import { ReactNative, clipboard, React } from "@vendetta/metro/common";
 import { showToast } from "@vendetta/ui/toasts";
 import { getAssetIDByName } from "@vendetta/ui/assets";
-import { Codeblock } from "@vendetta/ui/components";
+import { Codeblock } from "../../../lib/ui/Codeblock";
 import { cleanMessage } from "./cleanMessage";
 
 const { Button } = findByProps("Button", "Stack");
