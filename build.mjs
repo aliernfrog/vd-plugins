@@ -15,7 +15,7 @@ const sourceWebsite = "https://github.com/aliernfrog/vd-plugins/tree/master/plug
 const readmePlugins = [];
 
 /** @type import("rollup").InputPluginOption */
-const plugins = (minify = true) => [
+const plugins = (minify = true) => ([
   nodeResolve(),
   commonjs(),
   {
@@ -50,53 +50,60 @@ const plugins = (minify = true) => [
     },
   },
   esbuild({ minify })
-];
+]);
 
-for (let plug of await readdir("./plugins")) {
-  const manifest = JSON.parse(await readFile(`./plugins/${plug}/manifest.json`));
-  const outPath = `./dist/${plug}/index.js`;
+async function buildPlugins(minified) {
+  for (let plug of await readdir("./plugins")) {
+    const manifest = JSON.parse(await readFile(`./plugins/${plug}/manifest.json`));
+    const outPlug = minified ? plug : `${plug}.unminified`;
+    const outPath = `./dist/${outPlug}/index.js`;
   
-  try {
-    const bundle = await rollup({
-      input: `./plugins/${plug}/${manifest.main}`,
-      onwarn: () => {},
-      plugins
-    });
+    try {
+      const bundle = await rollup({
+        input: `./plugins/${plug}/${manifest.main}`,
+        onwarn: () => {},
+        plugins: plugins(minified)
+      });
     
-    await bundle.write({
-      file: outPath,
-      globals(id) {
-        if (id.startsWith("@vendetta")) return id.substring(1).replace(/\//g, ".");
-        const map = {
-          react: "window.React",
-        }
+      await bundle.write({
+        file: outPath,
+        globals(id) {
+          if (id.startsWith("@vendetta")) return id.substring(1).replace(/\//g, ".");
+          const map = {
+            react: "window.React",
+          }
 
-        return map[id] || null;
-      },
-      format: "iife",
-      compact: true,
-      exports: "named",
-    });
-    await bundle.close();
+          return map[id] || null;
+        },
+        format: "iife",
+        compact: true,
+        exports: "named",
+      });
+      await bundle.close();
     
-    const toHash = await readFile(outPath);
-    manifest.hash = createHash("sha256").update(toHash).digest("hex");
-    manifest.main = "index.js";
+      const toHash = await readFile(outPath);
+      manifest.hash = createHash("sha256").update(toHash).digest("hex");
+      manifest.main = "index.js";
+      if (!minified) manifest.name += " (unminified)";
     
-    readmePlugins.push({
-      id: plug,
-      ...manifest
-    });
-    delete manifest.aliern;
+      if (!readmePlugins.some(p => p.id === plug)) readmePlugins.push({
+        id: plug,
+        ...manifest
+      });
+      delete manifest.aliern;
     
-    await writeFile(`./dist/${plug}/manifest.json`, JSON.stringify(manifest));
+      await writeFile(`./dist/${outPlug}/manifest.json`, JSON.stringify(manifest));
     
-    console.log(`Successfully built plugin: ${manifest.name}`);
-  } catch (e) {
-    console.error(`Failed to build ${plug} plugin:`, e);
-    process.exit(1);
+      console.log(`Successfully built plugin: ${manifest.name}`);
+    } catch (e) {
+      console.error(`Failed to build ${outPlug} plugin:`, e);
+      process.exit(1);
+    }
   }
 }
+
+await buildPlugins(true);
+await buildPlugins(false);
 
 await mkdir("./dist/themes");
 for (let theme of (await readdir("./themes")).filter(f => f.endsWith(".js"))) {
