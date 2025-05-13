@@ -1,4 +1,4 @@
-import { readFile, writeFile, readdir } from "fs/promises";
+import { mkdir, readFile, readdir, writeFile } from "fs/promises";
 import { extname } from "path";
 import { createHash } from "crypto";
 
@@ -15,7 +15,7 @@ const sourceWebsite = "https://github.com/aliernfrog/vd-plugins/tree/master/plug
 const readmePlugins = [];
 
 /** @type import("rollup").InputPluginOption */
-const plugins = [
+const plugins = (minify = true) => [
   nodeResolve(),
   commonjs(),
   {
@@ -49,7 +49,7 @@ const plugins = [
       return result.code;
     },
   },
-  esbuild({ minify: true })
+  esbuild({ minify })
 ];
 
 for (let plug of await readdir("./plugins")) {
@@ -91,9 +91,24 @@ for (let plug of await readdir("./plugins")) {
     
     await writeFile(`./dist/${plug}/manifest.json`, JSON.stringify(manifest));
     
-    console.log(`Successfully built ${manifest.name}!`);
+    console.log(`Successfully built plugin: ${manifest.name}`);
   } catch (e) {
-    console.error("Failed to build plugin...", e);
+    console.error(`Failed to build ${plug} plugin:`, e);
+    process.exit(1);
+  }
+}
+
+await mkdir("./dist/themes");
+for (let theme of (await readdir("./themes")).filter(f => f.endsWith(".js"))) {
+  try {
+    const themeModule = await import(`./themes/${theme}`);
+    theme = theme.substring(0, theme.length-3);
+    const themeStr = await themeModule.default();
+    
+    await writeFile(`./dist/themes/${theme}.json`, themeStr);
+    console.log(`Successfully built theme: ${theme}`);
+  } catch (e) {
+    console.error(`Failed to build ${theme} theme:`, e);
     process.exit(1);
   }
 }
