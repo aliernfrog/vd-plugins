@@ -53,16 +53,71 @@ async function openMediaModal(src) {
       };
     });
   });
+}const { openAlert } = metro.findByProps("openAlert", "dismissAlert");
+const { AlertModal, AlertActionButton } = metro.findByProps("AlertModal", "AlertActions");
+const { Stack, TextInput } = metro.findByProps("Stack");
+function showInputDialog(options) {
+  if (AlertModal && AlertActionButton)
+    showNewInputDialog(options);
+  else
+    alerts.showInputAlert(options);
+}
+function showNewInputDialog(options) {
+  const key = generateDialogKey(options.title);
+  openAlert(generateDialogKey(options.title), /* @__PURE__ */ React.createElement(NewInputDialog, {
+    key,
+    title: options.title,
+    content: options.content,
+    initialValue: options.initialValue,
+    placeholder: options.placeholder,
+    onConfirm: options.onConfirm,
+    confirmText: options.confirmText,
+    cancelText: options.cancelText,
+    allowEmpty: options.allowEmpty
+  }));
+}
+function NewInputDialog(param) {
+  let { key, title, content, initialValue, placeholder, onConfirm, confirmText, cancelText, allowEmpty } = param;
+  const [value, setValue] = React.useState(initialValue ?? "");
+  function loadConfirm() {
+    if (!allowEmpty && !value.trim().length)
+      return toasts.showToast("Cannot add with a blank name");
+    onConfirm(value);
+  }
+  return /* @__PURE__ */ React.createElement(AlertModal, {
+    title,
+    content,
+    extraContent: /* @__PURE__ */ React.createElement(TextInput, {
+      isClearable: true,
+      value,
+      onChange: setValue,
+      placeholder,
+      returnKeyType: "done",
+      onSubmitEditing: loadConfirm
+    }),
+    actions: /* @__PURE__ */ React.createElement(Stack, null, /* @__PURE__ */ React.createElement(AlertActionButton, {
+      disabled: !value.trim().length,
+      text: confirmText,
+      variant: "primary",
+      onPress: loadConfirm
+    }), cancelText ? /* @__PURE__ */ React.createElement(AlertActionButton, {
+      text: cancelText,
+      variant: "secondary"
+    }) : /* @__PURE__ */ React.createElement(React.Fragment, null))
+  });
+}
+function generateDialogKey(title) {
+  return `vdarnfg-${title?.toLowerCase?.().replaceAll?.(" ", "-")}`;
 }const emojiSlotModule = metro.findByProps("getMaxEmojiSlots");
 const { FormRow, FormIcon: FormIcon$1 } = components.Forms;
 function AddToServerRow(param) {
   let { guild, emojiNode } = param;
   const addToServerCallback = function() {
-    alerts.showInputAlert({
+    showInputDialog({
       title: "Emoji name",
       initialValue: emojiNode.alt,
       placeholder: "bleh",
-      onConfirm: function(name) {
+      onConfirm: async function(name) {
         fetchImageAsDataURL(emojiNode.src, function(dataUrl) {
           Emojis.uploadEmoji({
             guildId: guild.id,

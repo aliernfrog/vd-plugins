@@ -52,7 +52,7 @@ function get(key) {
   return cache.get(key);
 }const { openAlert } = metro.findByProps("openAlert", "dismissAlert");
 const { AlertModal, AlertActionButton } = metro.findByProps("AlertModal", "AlertActions");
-const { Stack: Stack$1 } = metro.findByProps("Stack");
+const { Stack: Stack$1, TextInput } = metro.findByProps("Stack");
 function showDialog(options) {
   if (AlertModal && AlertActionButton)
     showNewDialog(options);
@@ -60,8 +60,8 @@ function showDialog(options) {
     alerts.showConfirmationAlert(options);
 }
 function showNewDialog(param) {
-  let { title, content, confirmText, cancelText, onConfirm } = param;
-  openAlert(`vdarnfg-${title?.toLowerCase?.().replaceAll?.(" ", "-")}`, /* @__PURE__ */ React.createElement(AlertModal, {
+  let { title, content, placeholder, confirmText, cancelText, onConfirm } = param;
+  openAlert(generateDialogKey(title), /* @__PURE__ */ React.createElement(AlertModal, {
     title,
     content,
     actions: /* @__PURE__ */ React.createElement(Stack$1, null, /* @__PURE__ */ React.createElement(AlertActionButton, {
@@ -73,6 +73,9 @@ function showNewDialog(param) {
       variant: "secondary"
     }) : /* @__PURE__ */ React.createElement(React.Fragment, null))
   }));
+}
+function generateDialogKey(title) {
+  return `vdarnfg-${title?.toLowerCase?.().replaceAll?.(" ", "-")}`;
 }function showApngAlert(onConfirm) {
   showDialog({
     title: "APNG Sticker",
