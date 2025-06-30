@@ -1,6 +1,6 @@
 import { findByProps } from "@vendetta/metro";
 import { React } from "@vendetta/metro/common";
-import { showInputAlert } from "@vendetta/ui/alerts";
+import { showInputDialog } from "../../../../lib/ui/AlertDialog";
 import { getAssetIDByName } from "@vendetta/ui/assets";
 import { Forms } from "@vendetta/ui/components";
 import { showToast } from "@vendetta/ui/toasts";
@@ -12,11 +12,11 @@ const { FormRow, FormIcon } = Forms;
 
 export default function AddToServerRow({ guild, emojiNode }: { guild: any, emojiNode: EmojiNode }) {
     const addToServerCallback = () => {
-        showInputAlert({
+        showInputDialog({
             title: "Emoji name",
             initialValue: emojiNode.alt,
             placeholder: "bleh",
-            onConfirm: (name) => {
+            onConfirm: async (name) => {
                 // Fetch image
                 fetchImageAsDataURL(emojiNode.src, (dataUrl) => {
                     // Upload it to Discord
