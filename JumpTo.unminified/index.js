@@ -15,8 +15,7 @@ const { ActionSheetRow: ActionSheetRow$1 } = metro.findByProps("ActionSheetRow")
 const ForumPostLongPressActionSheet = metro.findByName("ForumPostLongPressActionSheet", false);
 const CopyLinkIcon$1 = assets.getAssetIDByName("LinkIcon") ?? assets.getAssetIDByName("ic_copy_message_link");
 const ToastLinkIcon$1 = assets.getAssetIDByName("toast_copy_link");
-var ForumPostActionSheet = patcher.after("default", ForumPostLongPressActionSheet, function(param, component) {
-  let [{ thread }] = param;
+var ForumPostActionSheet = patcher.after("default", ForumPostLongPressActionSheet, function([{ thread }], component) {
   const actions = utils.findInReactTree(component, function(c) {
     return c?.[0]?.type?.name === "ActionSheetRowGroup";
   });
@@ -43,8 +42,7 @@ var ForumPostActionSheet = patcher.after("default", ForumPostLongPressActionShee
 const { ActionSheetRow } = metro.findByProps("ActionSheetRow");
 const CopyLinkIcon = assets.getAssetIDByName("LinkIcon") ?? assets.getAssetIDByName("ic_copy_message_link");
 const ToastLinkIcon = assets.getAssetIDByName("toast_copy_link");
-var MessageActionSheet = patcher.before("openLazy", ActionSheet, function(param) {
-  let [comp, args, msg] = param;
+var MessageActionSheet = patcher.before("openLazy", ActionSheet, function([comp, args, msg]) {
   if (args != "MessageLongPressActionSheet" || !msg?.message)
     return;
   comp.then(function(instance) {

@@ -76,8 +76,7 @@ function showNewInputDialog(options) {
     allowEmpty: options.allowEmpty
   }));
 }
-function NewInputDialog(param) {
-  let { key, title, content, initialValue, placeholder, onConfirm, confirmText, cancelText, allowEmpty } = param;
+function NewInputDialog({ key, title, content, initialValue, placeholder, onConfirm, confirmText, cancelText, allowEmpty }) {
   const [value, setValue] = React.useState(initialValue ?? "");
   function loadConfirm() {
     if (!allowEmpty && !value.trim().length)
@@ -110,8 +109,7 @@ function generateDialogKey(title) {
   return `vdarnfg-${title?.toLowerCase?.().replaceAll?.(" ", "-")}`;
 }const emojiSlotModule = metro.findByProps("getMaxEmojiSlots");
 const { FormRow, FormIcon: FormIcon$1 } = components.Forms;
-function AddToServerRow(param) {
-  let { guild, emojiNode } = param;
+function AddToServerRow({ guild, emojiNode }) {
   const addToServerCallback = function() {
     showInputDialog({
       title: "Emoji name",
@@ -183,8 +181,7 @@ function showAddToServerActionSheet(emojiNode) {
     }
   }), "AddToServerActionSheet");
 }
-function AddToServer(param) {
-  let { emojiNode } = param;
+function AddToServer({ emojiNode }) {
   const guilds = Object.values(GuildStore.getGuilds()).filter(function(guild) {
     return PermissionsStore.can(common.constants.Permissions.MANAGE_GUILD_EXPRESSIONS, guild);
   }).sort(function(a, b) {
@@ -216,8 +213,7 @@ function AddToServer(param) {
       paddingBottom: 24
     },
     data: guilds,
-    renderItem: function(param2) {
-      let { item } = param2;
+    renderItem: function({ item }) {
       return /* @__PURE__ */ React.createElement(AddToServerRow, {
         guild: item,
         emojiNode
@@ -229,8 +225,7 @@ function AddToServer(param) {
     }
   }));
 }const { Button } = metro.findByProps("TableRow", "Button");
-function StealButtons(param) {
-  let { emojiNode } = param;
+function StealButtons({ emojiNode }) {
   const buttons = [
     {
       text: "Add to Server",
@@ -276,8 +271,7 @@ function StealButtons(param) {
       }
     }
   ];
-  return /* @__PURE__ */ React.createElement(React.Fragment, null, buttons.map(function(param2) {
-    let { text, callback } = param2;
+  return /* @__PURE__ */ React.createElement(React.Fragment, null, buttons.map(function({ text, callback }) {
     return /* @__PURE__ */ React.createElement(Button, {
       color: Button.Colors?.BRAND,
       text,
@@ -297,8 +291,7 @@ function patchMessageEmojiActionSheet() {
   if (MessageEmojiActionSheet)
     return patchSheet("default", MessageEmojiActionSheet);
   const patches = [];
-  const unpatchLazy = patcher.before("openLazy", LazyActionSheet, function(param) {
-    let [lazySheet, name] = param;
+  const unpatchLazy = patcher.before("openLazy", LazyActionSheet, function([lazySheet, name]) {
     if (name !== "MessageEmojiActionSheet")
       return;
     unpatchLazy();
@@ -314,10 +307,8 @@ function patchMessageEmojiActionSheet() {
     });
   };
 }
-function patchSheet(funcName, sheetModule) {
-  let once = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : false;
-  const unpatch = patcher.after(funcName, sheetModule, function(param, res) {
-    let [{ emojiNode }] = param;
+function patchSheet(funcName, sheetModule, once = false) {
+  const unpatch = patcher.after(funcName, sheetModule, function([{ emojiNode }], res) {
     common.React.useEffect(function() {
       return function() {
         return void (once && unpatch());
@@ -385,8 +376,7 @@ function patchSheet(funcName, sheetModule) {
     });
   };
 });
-function openEmojiActionSheet(param) {
-  let { id, name, animated } = param;
+function openEmojiActionSheet({ id, name, animated }) {
   try {
     getTapEmojiHandler()(id ? {
       id,
@@ -401,8 +391,7 @@ function openEmojiActionSheet(param) {
   }
 }const { TouchableOpacity } = components.General;
 function patchActionSheet() {
-  return patcher.before("openLazy", LazyActionSheet, function(param) {
-    let [lazySheet, name] = param;
+  return patcher.before("openLazy", LazyActionSheet, function([lazySheet, name]) {
     if (name != "MessageReactions")
       return;
     lazySheet.then(function(module) {

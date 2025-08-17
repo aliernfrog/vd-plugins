@@ -38,8 +38,7 @@ function checkSummaries(channelSummariesPairs) {
     _vendetta.logger.log(`Adding selected channel ${currentChannel} to whitelist`);
     whitelistedChannels.push(currentChannel);
   }
-  channelSummariesPairs.forEach(function(param) {
-    let [channelId, summaries] = param;
+  channelSummariesPairs.forEach(function([channelId, summaries]) {
     summaries.forEach(function(summary) {
       if (knownSummaries.includes(summary.id))
         return;
@@ -63,8 +62,7 @@ function notifyNewSummary(channel, summary) {
     "-# Automated message by Summaries plugin"
   ].join("\n"));
 }
-const unpatchFlux = patcher.before("dispatch", common.FluxDispatcher, function(param) {
-  let [event] = param;
+const unpatchFlux = patcher.before("dispatch", common.FluxDispatcher, function([event]) {
   if (event.type !== "CONVERSATION_SUMMARY_UPDATE")
     return;
   _vendetta.logger.log("Received CONVERSATION_SUMMARY_UPDATE dispatch: ", event);

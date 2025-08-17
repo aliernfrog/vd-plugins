@@ -379,7 +379,7 @@
       "#131318"
     ],
     "EMBED_BACKGROUND_ALTERNATE": [
-      "#313338"
+      "#131318"
     ],
     "EMBED_TITLE": [
       "#ecedef"
@@ -501,6 +501,9 @@
     "INPUT_BORDER": [
       "#6c6f7c52"
     ],
+    "INPUT_BORDER_CRITICAL_HOVER": [
+      "#e95d5c"
+    ],
     "INPUT_ERROR_BACKGROUND": [
       "#a128291f"
     ],
@@ -512,6 +515,12 @@
     ],
     "INPUT_FOCUSED_BORDER": [
       "#6c6f7c3d"
+    ],
+    "INPUT_FOREGROUND_CRITICAL": [
+      "#fa777b"
+    ],
+    "INPUT_FOREGROUND_DEFAULT": [
+      "#dbdcdf"
     ],
     "INPUT_PLACEHOLDER_TEXT": [
       "#9597a3"

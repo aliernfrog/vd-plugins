@@ -1,8 +1,7 @@
 (function(exports,patcher,metro,utils,common,assets,toasts){'use strict';const ActionSheet = metro.findByProps("openLazy", "hideActionSheet");
 const { ActionSheetRow } = metro.findByProps("ActionSheetRow");
 const CopyIcon = assets.getAssetIDByName("CopyIcon");
-var CommandPopoutSheet = patcher.before("openLazy", ActionSheet, function(param) {
-  let [comp, tag] = param;
+var CommandPopoutSheet = patcher.before("openLazy", ActionSheet, function([comp, tag]) {
   if (!tag?.startsWith?.("ExecutedCommandPopout"))
     return;
   comp.then(function(instance) {

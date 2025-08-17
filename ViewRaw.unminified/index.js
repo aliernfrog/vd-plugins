@@ -13,8 +13,7 @@ const useStyles = createStyles({
     padding: 10
   }
 });
-const InputBasedCodeblock = function(param) {
-  let { style, children } = param;
+const InputBasedCodeblock = function({ style, children }) {
   return /* @__PURE__ */ React.createElement(TextInput, {
     editable: true,
     multiline: true,
@@ -25,8 +24,7 @@ const InputBasedCodeblock = function(param) {
     value: children
   });
 };
-function Codeblock(param) {
-  let { selectable, style, children } = param;
+function Codeblock({ selectable, style, children }) {
   return /* @__PURE__ */ React.createElement(InputBasedCodeblock, {
     style,
     children
@@ -45,8 +43,7 @@ function Codeblock(param) {
   return clone;
 };const { Button } = metro.findByProps("Button", "Stack");
 const { ScrollView } = common.ReactNative;
-function RawPage(param) {
-  let { message } = param;
+function RawPage({ message }) {
   const stringMessage = common.React.useMemo(function() {
     return JSON.stringify(cleanMessage(message), null, 4);
   }, [
@@ -88,8 +85,7 @@ const { ActionSheetRow } = metro.findByProps("ActionSheetRow");
 const Navigation = metro.findByProps("push", "pushLazy", "pop");
 const modalCloseButton = metro.findByProps("getRenderCloseButton")?.getRenderCloseButton ?? metro.findByProps("getHeaderCloseButton")?.getHeaderCloseButton;
 const Navigator = metro.findByName("Navigator") ?? metro.findByProps("Navigator")?.Navigator;
-const unpatch = patcher.before("openLazy", ActionSheet, function(param) {
-  let [component, key, msg] = param;
+const unpatch = patcher.before("openLazy", ActionSheet, function([component, key, msg]) {
   const message = msg?.message;
   if (key !== "MessageLongPressActionSheet" || !message)
     return;

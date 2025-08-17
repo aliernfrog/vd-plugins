@@ -59,8 +59,7 @@ function showDialog(options) {
   else
     alerts.showConfirmationAlert(options);
 }
-function showNewDialog(param) {
-  let { title, content, placeholder, confirmText, cancelText, onConfirm } = param;
+function showNewDialog({ title, content, placeholder, confirmText, cancelText, onConfirm }) {
   openAlert(generateDialogKey(title), /* @__PURE__ */ React.createElement(AlertModal, {
     title,
     content,
