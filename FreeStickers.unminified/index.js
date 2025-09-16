@@ -26,11 +26,11 @@ async function convertToGIF(stickerUrl) {
       method: "POST",
       body: form
     });
-    const fileId = response.url.split("/").pop();
+    const fileId = response.url.split("/").pop().replace(/\.html$/, "");
     form = new FormData();
     form.append("file", fileId);
     form.append("size", plugin.storage.stickerSize.toString());
-    response = await fetch(`https://ezgif.com/apng-to-gif/${fileId}?ajax=true`, {
+    response = await fetch(`https://ezgif.com/apng-to-gif/${fileId}.html?ajax=true`, {
       method: "POST",
       body: form
     });

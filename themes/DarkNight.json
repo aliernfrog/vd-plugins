@@ -432,6 +432,9 @@
     "FORUM_POST_TAG_BACKGROUND": [
       "#212229e6"
     ],
+    "GRADIENT_PROGRESS_PILL_BACKGROUND": [
+      "#3b3c43"
+    ],
     "GUILD_NOTIFICATIONS_BOTTOM_SHEET_PILL_BACKGROUND": [
       "#1e1f22"
     ],
