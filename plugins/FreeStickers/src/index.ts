@@ -1,3 +1,4 @@
+import boostsPatch from "./patches/boosts";
 import nitroPatch from "./patches/nitro";
 import messagePatch from "./patches/message";
 import Settings from "./ui/Settings";
@@ -7,6 +8,7 @@ let patches;
 export const onLoad = () => {
   if (patches) onUnload();
   patches = [
+    boostsPatch(),
     nitroPatch(),
     messagePatch()
   ];

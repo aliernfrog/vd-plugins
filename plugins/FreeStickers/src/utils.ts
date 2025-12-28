@@ -9,7 +9,8 @@ const baseStickerURL = "https://media.discordapp.net/stickers/{stickerId}.{forma
 export function isStickerAvailable(sticker, channelId) {
   if (!sticker.guild_id) return true; // Not from a guild, default sticker. No Nitro needed.
   const channelGuildId = getChannel(channelId).guild_id;
-  return sticker.guild_id == channelGuildId;
+  // Even though isSendableSticker() is patched in patches/boosts.ts, sticker.available will still be based on boosts tiers
+  return sticker.guild_id == channelGuildId ? sticker.available : false;
 }
 
 export function buildStickerURL(sticker) {
