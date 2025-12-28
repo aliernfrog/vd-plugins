@@ -1,5 +1,7 @@
 # VD Plugins
-This repo contains my plugins for [Revenge](https://github.com/revenge-mod) and [Bunny](https://github.com/pyoncord/Bunny).
+This repo contains my plugins for [Revenge](https://github.com/revenge-mod).
+
+Plugins here *might* also work on other Vendetta based mods. Be aware that I only test changes in the latest version of Revenge.
 
 # Plugin list
 ## [AutoNight](https://aliernfrog.github.io/vd-plugins/AutoNight)
