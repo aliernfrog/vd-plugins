@@ -10,10 +10,8 @@ import showApngFail from "../ui/ApngFail";
 
 const MessageModule = findByProps("sendMessage", "receiveMessage");
 const { getStickerById } = findByStoreName("StickersStore");
-const { getCurrentUser } = findByStoreName("UserStore");
 
 export default () => instead("sendStickers", MessageModule, (args, orig) => {
-  if (!storage.ignoreNitro && getCurrentUser?.().premiumType !== null) return orig(...args);
   const [ channelId, stickerIds, _, extra ] = args;
   
   const stickers = stickerIds.map(stickerId => getStickerById(stickerId));

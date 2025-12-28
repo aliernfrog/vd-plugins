@@ -3,14 +3,19 @@ import { findByStoreName } from "@vendetta/metro";
 import { storage } from "@vendetta/plugin";
 
 const { getChannel } = findByStoreName("ChannelStore");
+const { getCurrentUser } = findByStoreName("UserStore");
 
 const baseStickerURL = "https://media.discordapp.net/stickers/{stickerId}.{format}?size={size}";
 
 export function isStickerAvailable(sticker, channelId) {
+  // sticker.available is false when guild loses boost level and sticker becomes unavailable
+  // Even with the patches in patches/boosts.ts, sticker.available still reflects the actual status, which is good for us
+  // Not sure if it can be null (would probably mean available?), so check if explicitly false
+  if (sticker.available === false) return false;
   if (!sticker.guild_id) return true; // Not from a guild, default sticker. No Nitro needed.
+  if (!storage.ignoreNitro && getCurrentUser?.().premiumType !== null) return true; // User has Nitro, should be usable
   const channelGuildId = getChannel(channelId).guild_id;
-  // Even though isSendableSticker() is patched in patches/boosts.ts, sticker.available will still be based on boosts tiers
-  return sticker.guild_id == channelGuildId ? sticker.available : false;
+  return sticker.guild_id == channelGuildId;
 }
 
 export function buildStickerURL(sticker) {
