@@ -25,12 +25,17 @@ function nitroPatch() {
     return true;
   });
 }const { getChannel } = metro.findByStoreName("ChannelStore");
+const { getCurrentUser } = metro.findByStoreName("UserStore");
 const baseStickerURL = "https://media.discordapp.net/stickers/{stickerId}.{format}?size={size}";
 function isStickerAvailable(sticker, channelId) {
+  if (sticker.available === false)
+    return false;
   if (!sticker.guild_id)
     return true;
+  if (!plugin.storage.ignoreNitro && getCurrentUser?.().premiumType !== null)
+    return true;
   const channelGuildId = getChannel(channelId).guild_id;
-  return sticker.guild_id == channelGuildId ? sticker.available : false;
+  return sticker.guild_id == channelGuildId;
 }
 function buildStickerURL(sticker) {
   const format = sticker.format_type === 4 ? "gif" : "png";
@@ -113,11 +118,8 @@ function generateDialogKey(title) {
   });
 }const MessageModule = metro.findByProps("sendMessage", "receiveMessage");
 const { getStickerById } = metro.findByStoreName("StickersStore");
-const { getCurrentUser } = metro.findByStoreName("UserStore");
 function messagePatch() {
   return patcher.instead("sendStickers", MessageModule, function(args, orig) {
-    if (!plugin.storage.ignoreNitro && getCurrentUser?.().premiumType !== null)
-      return orig(...args);
     const [channelId, stickerIds, _, extra] = args;
     const stickers = stickerIds.map(function(stickerId) {
       return getStickerById(stickerId);
