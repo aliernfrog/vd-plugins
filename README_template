@@ -1,5 +1,7 @@
 # VD Plugins
-This repo contains my plugins for [Revenge](https://github.com/revenge-mod) and [Bunny](https://github.com/pyoncord/Bunny).
+This repo contains my plugins for [Revenge](https://github.com/revenge-mod).
+
+Plugins here *might* also work on other Vendetta based mods. Be aware that I only test plugins in the latest version of Revenge on Android.
 
 # Plugin list
 <PluginList />
