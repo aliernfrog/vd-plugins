@@ -1,4 +1,22 @@
-(function(exports,metro,patcher,plugin,toasts,_vendetta,alerts,storage,components){'use strict';const NitroModule = metro.findByProps("canUseAnimatedEmojis");
+(function(exports,metro,patcher,plugin,toasts,_vendetta,alerts,storage,components){'use strict';const StickerUtils = metro.findByProps("getStickerSendability");
+const SENDABLE = StickerUtils.StickerSendability.SENDABLE ?? 0;
+function boostsPatch() {
+  const patches = [
+    // This makes locked stickers actually send on click
+    patcher.instead("getStickerSendability", StickerUtils, function() {
+      return SENDABLE;
+    }),
+    // This makes locked stickers appear fully opaque in sticker list
+    patcher.instead("isSendableSticker", StickerUtils, function() {
+      return true;
+    })
+  ];
+  return function() {
+    return patches.forEach(function(p) {
+      return p?.();
+    });
+  };
+}const NitroModule = metro.findByProps("canUseAnimatedEmojis");
 const OLD_CHECK_NAME = "canUseStickersEverywhere";
 const NEW_CHECK_NAME = "canUseCustomStickersEverywhere";
 const CHECK_NAME = NitroModule[NEW_CHECK_NAME] ? NEW_CHECK_NAME : OLD_CHECK_NAME;
@@ -12,7 +30,7 @@ function isStickerAvailable(sticker, channelId) {
   if (!sticker.guild_id)
     return true;
   const channelGuildId = getChannel(channelId).guild_id;
-  return sticker.guild_id == channelGuildId;
+  return sticker.guild_id == channelGuildId ? sticker.available : false;
 }
 function buildStickerURL(sticker) {
   const format = sticker.format_type === 4 ? "gif" : "png";
@@ -235,6 +253,7 @@ const onLoad = function() {
   if (patches)
     onUnload();
   patches = [
+    boostsPatch(),
     nitroPatch(),
     messagePatch()
   ];
