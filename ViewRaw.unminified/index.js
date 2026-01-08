@@ -6,28 +6,34 @@ const useStyles = createStyles({
     fontSize: 12,
     textAlignVertical: "center",
     backgroundColor: ui.semanticColors.BACKGROUND_SECONDARY,
-    color: ui.semanticColors.TEXT_NORMAL,
+    color: ui.semanticColors.TEXT_NORMAL ?? ui.semanticColors.TEXT_DEFAULT,
     borderWidth: 1,
     borderRadius: 12,
-    borderColor: ui.semanticColors.BACKGROUND_TERTIARY,
+    borderColor: ui.semanticColors.BACKGROUND_TERTIARY ?? ui.semanticColors.BACKGROUND_BASE_LOWEST,
     padding: 10
   }
 });
-const InputBasedCodeblock = function({ style, children }) {
-  return /* @__PURE__ */ React.createElement(TextInput, {
-    editable: true,
-    multiline: true,
+const TextBasedCodeblock = function({ selectable, style, children }) {
+  return /* @__PURE__ */ React.createElement(Text, {
+    onPress: function() {
+    },
+    selectable,
     style: [
       useStyles().codeBlock,
       style && style
-    ],
-    value: children
-  });
+    ]
+  }, children);
 };
 function Codeblock({ selectable, style, children }) {
-  return /* @__PURE__ */ React.createElement(InputBasedCodeblock, {
+  if (!selectable)
+    return /* @__PURE__ */ React.createElement(TextBasedCodeblock, {
+      style,
+      children
+    });
+  return /* @__PURE__ */ React.createElement(TextBasedCodeblock, {
     style,
-    children
+    children,
+    selectable: true
   });
 }const cleanMessage = function(msg) {
   const clone = JSON.parse(JSON.stringify(msg));
