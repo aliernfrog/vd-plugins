@@ -33,7 +33,7 @@ export function showAddToServerActionSheet(emojiNode: EmojiNode) {
 function AddToServer({ emojiNode }: { emojiNode: EmojiNode }) {
     // Get guilds as a Array of ID and value pairs, and filter out guilds the user can't edit emojis in
     const guilds = Object.values(GuildStore.getGuilds())
-        .filter(guild => PermissionsStore.can(constants.Permissions.MANAGE_GUILD_EXPRESSIONS, guild))
+        .filter(guild => PermissionsStore.can(constants.Permissions.CREATE_GUILD_EXPRESSIONS, guild))
         .sort((a,b) => a.name?.localeCompare?.(b.name));
 
     return (
