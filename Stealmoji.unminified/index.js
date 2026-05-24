@@ -5,7 +5,8 @@ const Emojis = metro.findByProps("uploadEmoji");
 const ActionSheet = metro.findByProps("ActionSheet")?.ActionSheet ?? metro.find(function(m) {
   return m.render?.name === "ActionSheet";
 });
-const { ActionSheetTitleHeader, ActionSheetCloseButton } = metro.findByProps("ActionSheetTitleHeader");
+const { ActionSheetTitleHeader } = metro.findByProps("ActionSheetTitleHeader");
+const { ActionSheetCloseButton } = metro.findByProps("ActionSheetCloseButton");
 const { BottomSheetFlatList } = metro.findByProps("BottomSheetScrollView");
 const EmojiStore = metro.findByStoreName("EmojiStore");
 const GuildStore = metro.findByStoreName("GuildStore");
