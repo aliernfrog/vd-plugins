@@ -5,7 +5,7 @@ const Emojis = metro.findByProps("uploadEmoji");
 const ActionSheet = metro.findByProps("ActionSheet")?.ActionSheet ?? metro.find(function(m) {
   return m.render?.name === "ActionSheet";
 });
-const { ActionSheetTitleHeader, ActionSheetCloseButton } = metro.findByProps("ActionSheetTitleHeader");
+metro.findByProps("ActionSheetTitleHeader");
 const { BottomSheetFlatList } = metro.findByProps("BottomSheetScrollView");
 const EmojiStore = metro.findByStoreName("EmojiStore");
 const GuildStore = metro.findByStoreName("GuildStore");
@@ -187,25 +187,7 @@ function AddToServer({ emojiNode }) {
   }).sort(function(a, b) {
     return a.name?.localeCompare?.(b.name);
   });
-  return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(ActionSheetTitleHeader, {
-    title: `Stealing ${emojiNode.alt}`,
-    leading: /* @__PURE__ */ React.createElement(FormIcon, {
-      style: {
-        marginRight: 12,
-        opacity: 1
-      },
-      source: {
-        uri: emojiNode.src
-      },
-      disableColor: true
-      // It actually does the opposite
-    }),
-    trailing: /* @__PURE__ */ React.createElement(ActionSheetCloseButton, {
-      onPress: function() {
-        return LazyActionSheet.hideActionSheet();
-      }
-    })
-  }), /* @__PURE__ */ React.createElement(BottomSheetFlatList, {
+  return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(BottomSheetFlatList, {
     style: {
       flex: 1
     },
