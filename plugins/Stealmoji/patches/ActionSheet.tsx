@@ -23,9 +23,10 @@ export default () => before("openLazy", LazyActionSheet, ([lazySheet, name]) => 
             const row = findInReactTree(header, (c) => c?.props?.tabs?.length);
             if (!row) return;
             const { tabs, onSelect } = row.props;
-            row.props.tabs = tabs.map(tab => (
+            console.log(tabs);
+            row.props.tabs = tabs.map((tab, i) => (
               <TouchableOpacity
-                onPress={() => onSelect(tab.props.index)}
+                onPress={() => onSelect(tab.props.index ?? i)}
                 onLongPress={() => {
                   const { emoji } = tab.props.reaction;
                   openEmojiActionSheet(emoji);
