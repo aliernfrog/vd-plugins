@@ -23,7 +23,6 @@ export default () => before("openLazy", LazyActionSheet, ([lazySheet, name]) => 
             const row = findInReactTree(header, (c) => c?.props?.tabs?.length);
             if (!row) return;
             const { tabs, onSelect } = row.props;
-            console.log(tabs);
             row.props.tabs = tabs.map((tab, i) => (
               <TouchableOpacity
                 onPress={() => onSelect(tab.props.index ?? i)}

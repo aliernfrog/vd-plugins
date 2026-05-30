@@ -38,7 +38,7 @@ function AddToServer({ emojiNode }: { emojiNode: EmojiNode }) {
 
     return (
         <>
-            {/* <ActionSheetTitleHeader
+            <ActionSheetTitleHeader
                 title={`Stealing ${emojiNode.alt}`}
                 leading={<FormIcon
                     style={{ marginRight: 12, opacity: 1 }}
@@ -48,7 +48,7 @@ function AddToServer({ emojiNode }: { emojiNode: EmojiNode }) {
                 trailing={<ActionSheetCloseButton
                     onPress={() => LazyActionSheet.hideActionSheet()}
                 />}
-            /> */}
+            />
             <BottomSheetFlatList
                 style={{ flex: 1 }}
                 contentContainerStyle={{ paddingBottom: 24 }}

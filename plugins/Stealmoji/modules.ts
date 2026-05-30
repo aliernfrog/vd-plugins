@@ -7,10 +7,12 @@ export const Emojis = findByProps("uploadEmoji");
 
 export const ActionSheet = findByProps("ActionSheet")?.ActionSheet ?? find(m => m.render?.name === "ActionSheet");
 
-export const { 
-    ActionSheetTitleHeader, 
-    ActionSheetCloseButton 
-} = findByProps("ActionSheetTitleHeader");
+export const ActionSheetTitleHeader = findByProps("ActionSheetTitleHeader")?.ActionSheetTitleHeader
+    ?? findByProps("BottomSheetTitleHeader")?.BottomSheetTitleHeader;
+
+export const {
+    ActionSheetCloseButton
+} = findByProps("ActionSheetCloseButton");
 
 export const { 
     BottomSheetFlatList 
