@@ -397,10 +397,11 @@ function patchActionSheet() {
             if (!row)
               return;
             const { tabs, onSelect } = row.props;
-            row.props.tabs = tabs.map(function(tab) {
+            console.log(tabs);
+            row.props.tabs = tabs.map(function(tab, i) {
               return /* @__PURE__ */ common.React.createElement(TouchableOpacity, {
                 onPress: function() {
-                  return onSelect(tab.props.index);
+                  return onSelect(tab.props.index ?? i);
                 },
                 onLongPress: function() {
                   const { emoji } = tab.props.reaction;
