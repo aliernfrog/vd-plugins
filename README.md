@@ -1,8 +1,12 @@
+> [!IMPORTANT]
+> **Plugins here are no longer maintained and the repository is archived** as I have migrated to [Valenced](https://valenced.app).
+> 
+> This means that plugins here will no longer be updated, fixed or have any changes.
+>
+> Thank you for giving my plugins a try, and contributing via pull requests or reporting issues.
+
 # VD Plugins
 This repository contains my plugins for [Revenge](https://github.com/revenge-mod).
-
-Plugins here *might* also work on other Vendetta based mods. Be aware that I only test plugins in the latest version of Revenge on Android.
-
 
 # License
 Plugins in this repository are licensed under [GPLv3](/LICENSE.md), unless stated otherwise in this README file and the LICENSE file in the plugin subfolder.
